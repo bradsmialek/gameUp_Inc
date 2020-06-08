@@ -34,12 +34,19 @@ class SceneMain extends Phaser.Scene {
     this.background.setInteractive();
     this.background.on("pointerdown", this.backgroundClicked, this);
 
+    this.cameras.main.setBounds(0, 0, this.background.displayWidth, this.background.displayHeight);
+    this.cameras.main.startFollow(this.astronaut, true);
   }
 
   backgroundClicked() {
 
     var tx = this.background.input.localX;
+    this.tx = tx;
+    console.log(tx);
     var ty = this.background.input.localY;
+    this.ty = ty;
+    console.log(ty);
+
 
     var angle = this.physics.moveTo(this.astronaut, tx, ty, 60);
     angle = this.toDegrees(angle);
@@ -52,5 +59,18 @@ class SceneMain extends Phaser.Scene {
 
   update() {
     //constant running loop
+
+    var distX = Math.abs(this.astronaut.x - this.tx);
+    console.log(this.astronaut.x);
+    console.log("distx", distX);
+
+    var distY = Math.abs(this.astronaut.y - this.ty);
+    console.log('distY', distY);
+    console.log(distX < 10 && distY < 10);
+
+    if (distX < 10 && distY < 10) {
+      this.astronaut.body.setVelocity(0, 0);
+    }
+
   }
 }
