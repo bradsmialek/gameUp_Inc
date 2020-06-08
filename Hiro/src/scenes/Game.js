@@ -1,8 +1,11 @@
-import Phaser from '/src/lib/phaser.js';
-import ScoreLabel from '/src/game/ScoreLabel.js';
-import BombSpawner from '/src/game/BombSpawner.js';
-import ScorePage from '/src/scenes/ScorePage.js';
-//import Carrot from '/src/game/Carrot.js';
+// import Phaser from '/src/lib/phaser.js';
+// import ScoreLabel from '/src/game/ScoreLabel.js';
+// import BombSpawner from '/src/game/BombSpawner.js';
+// import ScorePage from '/src/scenes/ScorePage.js';
+import Phaser from '/Hiro/src/lib/phaser.js';
+import ScoreLabel from '/Hiro/src/game/ScoreLabel.js';
+import BombSpawner from '/Hiro/src/game/BombSpawner.js';
+import ScorePage from '/Hiro/src/scenes/ScorePage.js';
 
 //import GameOver from '/src/scenes/GameOver.js';
 
@@ -46,14 +49,13 @@ export default class Game extends Phaser.Scene{
     /*** preload() and create() wiil be called by Phaser at appropriate timing ***/
     // specify images, audio, or other assets to load before starting the Scene
     preload(){
-  
-        this.load.image('sky', 'assets/sky.png');
-        this.load.image(GROUND_KEY, 'assets/platform.png');
-        this.load.image(STAR_KEY, 'assets/star.png');
-        this.load.image(BOMB_KEY, 'assets/bomb.png');
-        this.load.image(MUSH_ROOM, 'assets/mushroom_brown.png');
-        this.load.image(GOLD_COIN, 'assets/goldCoin.png');
-        this.load.spritesheet(DUDE_KEY, 'assets/dude.png', {frameWidth:32, frameHeight:48});
+        this.load.image('sky', '.././assets/images/sky.png');
+        this.load.image(GROUND_KEY, '.././assets/images/platform.png');
+        this.load.image(STAR_KEY, '.././assets/images/star.png');
+        this.load.image(BOMB_KEY, '.././assets/images/bomb.png');
+        this.load.image(MUSH_ROOM, '.././assets/images/mushroom_brown.png');
+        this.load.image(GOLD_COIN, '.././assets/images/goldCoin.png');
+        this.load.spritesheet(DUDE_KEY, '.././assets/images/dude.png', {frameWidth:32, frameHeight:48});
     }
 
     // Create() is called once all the assets for the Scene have been loaded
