@@ -37,6 +37,10 @@ class SceneLoad extends Phaser.Scene {
     })
 
     this.load.image("bullet", "/assets/images/bullet.png");
+    this.load.spritesheet("exp", "/assets/images/exp.png", {
+      frameWidth: 64,
+      frameHeight: 64,
+    });
 
   }
   onProgress(value) {
@@ -46,5 +50,6 @@ class SceneLoad extends Phaser.Scene {
   }
   create() {
     this.scene.start("SceneTitle");
+
   }
 }

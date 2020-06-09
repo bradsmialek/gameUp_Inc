@@ -37,12 +37,13 @@ class SceneMain extends Phaser.Scene {
     this.background.setInteractive();
     this.background.on("pointerup", this.backgroundClicked, this);
     this.background.on("pointerdown", this.onDown, this);
-
-
+    //
+    //  
     this.cameras.main.setBounds(0, 0, this.background.displayWidth, this.background.displayHeight);
     this.cameras.main.startFollow(this.astronaut, true);
     //
     //
+    this.bulletGroup = this.physics.add.group()
     //
     //
     this.rockGroup = this.physics.add.group({
@@ -76,6 +77,24 @@ class SceneMain extends Phaser.Scene {
 
     }.bind(this));
     this.physics.add.collider(this.rockGroup);
+    this.physics.add.collider(this.bulletGroup, this.rockGroup, this.destroyRock, null, this);
+    var frameNames = this.anims.generateFrameNumbers('exp');
+    var f2 = frameNames.slice();
+    f2.reverse();
+    var f3 = f2.concat(frameNames);
+    this.anims.create({
+      key: 'boom',
+      frames: f3,
+      frameRate: 8,
+      repeat: -1
+    });
+    this.explosion = this.add.sprite(game.config.width / 2, game.config.height / 2, 'exp');
+    this.explosion.play('boom');
+  }
+
+  destroyRock(bullet, rock) {
+    bullet.destroy();
+    rock.destroy();
   }
 
   getTimer() {
@@ -90,7 +109,7 @@ class SceneMain extends Phaser.Scene {
   backgroundClicked() {
     var elapsed = Math.abs(this.downTime - this.getTimer());
 
-    console.log(elapsed);
+    // console.log(elapsed);
 
     if (elapsed < 300) {
       var tx = this.background.input.localX;
@@ -113,9 +132,10 @@ class SceneMain extends Phaser.Scene {
   makeBullet() {
 
     var dirObj = this.getDirFromAngle(this.astronaut.angle);
-    console.log(dirObj);
+    // console.log(dirObj);
 
     var bullet = this.physics.add.sprite(this.astronaut.x + dirObj.tx * 30, this.astronaut.y + dirObj.tx * 30, 'bullet');
+    this.bulletGroup.add(bullet);
     bullet.angle = this.astronaut.angle;
     bullet.body.setVelocity(dirObj.tx * 200, dirObj.ty * 200);
   }
