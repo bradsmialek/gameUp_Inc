@@ -43,7 +43,8 @@ class SceneMain extends Phaser.Scene {
     this.cameras.main.startFollow(this.astronaut, true);
     //
     //
-    this.bulletGroup = this.physics.add.group()
+    this.bulletGroup = this.physics.add.group();
+    this.ebulletGroup = this.physics.add.group();
     //
     //
     this.rockGroup = this.physics.add.group({
@@ -76,8 +77,7 @@ class SceneMain extends Phaser.Scene {
       child.body.setVelocity(vx * speed, vy * speed);
 
     }.bind(this));
-    this.physics.add.collider(this.rockGroup);
-    this.physics.add.collider(this.bulletGroup, this.rockGroup, this.destroyRock, null, this);
+
     var frameNames = this.anims.generateFrameNumbers('exp');
     var f2 = frameNames.slice();
     f2.reverse();
@@ -89,16 +89,24 @@ class SceneMain extends Phaser.Scene {
       repeat: false
     });
     this.eship = this.physics.add.sprite(this.centerX, 100, 'eship');
-    Align.scaleToGameW(this.eship, .25)
+    Align.scaleToGameW(this.eship, .25);
     this.makeInfo();
+    this.setColliders();
+  }
+
+  setColliders() {
+    this.physics.add.collider(this.rockGroup);
+    this.physics.add.collider(this.bulletGroup, this.rockGroup, this.destroyRock, null, this);
+    this.physics.add.collider(this.ebulletGroup, this.rockGroup, this.destroyRock, null, this);
+    this.physics.add.collider(this.bulletGroup, this.eship, this.damageEnemy, null, this);
   }
 
   makeInfo() {
-    this.text1 = this.add.text(0, 0, "Sheilds\n100", {
+    this.text1 = this.add.text(0, 0, "Sheild\n100", {
       align: 'center',
       backgroundColor: '#000000'
     });
-    this.text2 = this.add.text(0, 0, "Enemy Sheilds\n100", {
+    this.text2 = this.add.text(0, 0, "Enemy Sheild\n100", {
       align: 'center',
       backgroundColor: '#000000'
     });
@@ -111,18 +119,43 @@ class SceneMain extends Phaser.Scene {
       rows: 11,
       cols: 11,
     })
-    this.uiGrid.showNumbers();
+    // this.uiGrid.showNumbers();
     //
     //
     this.uiGrid.placeAtIndex(2, this.text1);
     this.uiGrid.placeAtIndex(9, this.text2);
+    //
+    //
+    this.icon1 = this.add.image(0, 0, "astronaut");
+    this.icon2 = this.add.image(0, 0, "eship");
+    Align.scaleToGameW(this.icon1, .025);
+    Align.scaleToGameW(this.icon2, .05);
+
+    this.uiGrid.placeAtIndex(1, this.icon1);
+    this.uiGrid.placeAtIndex(7, this.icon2);
+
+    this.icon1.angle = 0;
+    this.icon2.angle = 270;
+
+    this.text1.setScrollFactor(0);
+    this.text2.setScrollFactor(0);
+    this.icon1.setScrollFactor(0);
+    this.icon2.setScrollFactor(0);
+
+
+  }
+
+  damageEnemy(astronaut, bullet) {
+    var explosion = this.add.sprite(bullet.x, bullet.y, 'exp');
+    explosion.play('boom');
+    bullet.destroy();
 
   }
 
   destroyRock(bullet, rock) {
     bullet.destroy();
-    this.explosion = this.add.sprite(rock.x, rock.y, 'exp');
-    this.explosion.play('boom');
+    var explosion = this.add.sprite(rock.x, rock.y, 'exp');
+    explosion.play('boom');
     rock.destroy();
   }
 
@@ -179,6 +212,8 @@ class SceneMain extends Phaser.Scene {
     }
     this.lastEBullet = this.getTimer();
     var ebullet = this.physics.add.sprite(this.eship.x, this.eship.y, 'ebullet');
+    this.ebulletGroup.add(ebullet);
+    Align.scaleToGameW(ebullet, .05);
     ebullet.body.angularVelocity = 10;
     this.physics.moveTo(ebullet, this.astronaut.x, this.astronaut.y, 100);
   }
@@ -223,7 +258,5 @@ class SceneMain extends Phaser.Scene {
     if (distX2 < game.config.width / 5 && distY2 < game.config.height / 5) {
       this.fireEBullet();
     }
-
-
   }
 }
