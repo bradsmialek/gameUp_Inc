@@ -32,19 +32,12 @@ class SceneLoad extends Phaser.Scene {
     this.load.image("background", "/assets/images/background.jpg");
 
     this.load.spritesheet("rocks", "/assets/images/rocks.png", {
-      frameWidth: 125,
-      frameHeight: 100,
+      frameWidth: 120,
+      frameHeight: 90,
     })
 
-    this.myGroup = this.physics.add.group({
-      key: 'key',
-      frame: [0, 1, 2],
-      frameQuantity: 20,
-      bounceX: 1,
-      bounceY: 1,
-      angularVelocity: 1,
-      collideWorldBounds: true
-    });
+    this.load.image("bullet", "/assets/images/bullet.png");
+
   }
   onProgress(value) {
     this.bar.setPercent(value);
