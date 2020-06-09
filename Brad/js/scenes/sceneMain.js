@@ -36,6 +36,32 @@ class SceneMain extends Phaser.Scene {
 
     this.cameras.main.setBounds(0, 0, this.background.displayWidth, this.background.displayHeight);
     this.cameras.main.startFollow(this.astronaut, true);
+
+    this.rockGroup = this.physics.add.group({
+      key: 'rocks',
+      frame: [0, 1, 2],
+      frameQuantity: 4,
+      bounceX: 1,
+      bounceY: 1,
+      angularVelocity: 1,
+      collideWorldBounds: true
+    });
+
+    this.rockGroup.children.iterate(function (child) {
+      var xx = Math.floor(Math.random() * this.background.displayWidth);
+      var yy = Math.floor(Math.random() * this.background.displayHeight);
+      child.x = xx;
+      child.y = yy;
+
+      Align.scaleToGameW(child, .1)
+
+      var vx = Math.floor(Math.random() * 2) - 1;
+      var vy = Math.floor(Math.random() * 2) - 1;
+
+      var speed = Math.floor(Math.random() * 200) + 10;
+      child.body.setVelocity(vx * speed, vy * speed);
+
+    }.bind(this));
   }
 
   backgroundClicked() {

@@ -16,9 +16,9 @@ class SceneTitle extends Phaser.Scene {
       scene: this
     });
     //this.alignGrid.showNumbers();
-
+    //TODO : parralax background
     var title = this.add.image(0, 0, 'title');
-    Align.scaleToGameW(title, 1);
+    Align.scaleToGameW(title, 3);
     // Align.scaleToGameH(title, .1);
     this.alignGrid.placeAtIndex(38, title);
 
