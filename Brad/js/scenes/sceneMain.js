@@ -85,15 +85,44 @@ class SceneMain extends Phaser.Scene {
     this.anims.create({
       key: 'boom',
       frames: f3,
-      frameRate: 8,
-      repeat: -1
+      frameRate: 48,
+      repeat: false
     });
-    this.explosion = this.add.sprite(game.config.width / 2, game.config.height / 2, 'exp');
-    this.explosion.play('boom');
+    this.eship = this.physics.add.sprite(this.centerX, 100, 'eship');
+    Align.scaleToGameW(this.eship, .25)
+    this.makeInfo();
+  }
+
+  makeInfo() {
+    this.text1 = this.add.text(0, 0, "Sheilds\n100", {
+      align: 'center',
+      backgroundColor: '#000000'
+    });
+    this.text2 = this.add.text(0, 0, "Enemy Sheilds\n100", {
+      align: 'center',
+      backgroundColor: '#000000'
+    });
+
+    this.text1.setOrigin(0.5, 0.5);
+    this.text2.setOrigin(0.5, 0.5);
+
+    this.uiGrid = new AlignGrid({
+      scene: this,
+      rows: 11,
+      cols: 11,
+    })
+    this.uiGrid.showNumbers();
+    //
+    //
+    this.uiGrid.placeAtIndex(2, this.text1);
+    this.uiGrid.placeAtIndex(9, this.text2);
+
   }
 
   destroyRock(bullet, rock) {
     bullet.destroy();
+    this.explosion = this.add.sprite(rock.x, rock.y, 'exp');
+    this.explosion.play('boom');
     rock.destroy();
   }
 
@@ -125,8 +154,11 @@ class SceneMain extends Phaser.Scene {
     } else {
       // console.log('fire');
       this.makeBullet();
-
     }
+
+    var angle2 = this.physics.moveTo(this.eship, this.astronaut.x, this.astronaut.y, 100);
+    angle2 = this.toDegrees(angle2);
+    this.eship.angle = angle2;
   }
 
   makeBullet() {
@@ -138,6 +170,17 @@ class SceneMain extends Phaser.Scene {
     this.bulletGroup.add(bullet);
     bullet.angle = this.astronaut.angle;
     bullet.body.setVelocity(dirObj.tx * 200, dirObj.ty * 200);
+  }
+
+  fireEBullet() {
+    var elapsed = Math.abs(this.lastEBullet - this.getTimer());
+    if (elapsed < 500) {
+      return;
+    }
+    this.lastEBullet = this.getTimer();
+    var ebullet = this.physics.add.sprite(this.eship.x, this.eship.y, 'ebullet');
+    ebullet.body.angularVelocity = 10;
+    this.physics.moveTo(ebullet, this.astronaut.x, this.astronaut.y, 100);
   }
 
   toDegrees(angle) {
@@ -168,6 +211,19 @@ class SceneMain extends Phaser.Scene {
     if (distX < 10 && distY < 10) {
       this.astronaut.body.setVelocity(0, 0);
     }
+
+    var distX2 = Math.abs(this.astronaut.x - this.eship.x);
+    //console.log(this.astronaut.x);
+    //console.log("distx", distX);
+
+    var distY2 = Math.abs(this.astronaut.y - this.eship.y);
+    //console.log('distY', distY);
+    //console.log(distX < 10 && distY < 10);
+
+    if (distX2 < game.config.width / 5 && distY2 < game.config.height / 5) {
+      this.fireEBullet();
+    }
+
 
   }
 }
