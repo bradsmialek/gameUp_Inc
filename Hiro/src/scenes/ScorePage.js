@@ -1,4 +1,4 @@
-import Phaser from '/src/lib/phaser.js';
+import Phaser from '/Hiro/src/lib/phaser.js';
 
 //var myGame = require('/src/scenes/Game.js');
 

@@ -1,4 +1,4 @@
-import Phaser from '/src/lib/phaser.js';
+import Phaser from '/Hiro/src/lib/phaser.js';
 
 export default class BombSpawner{
     
