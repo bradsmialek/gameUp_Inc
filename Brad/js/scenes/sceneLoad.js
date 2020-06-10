@@ -26,9 +26,10 @@ class SceneLoad extends Phaser.Scene {
 
     this.load.image("astronaut", "/assets/images/astronaut.png");
     this.load.image("background", "/assets/images/background.jpg");
-    this.load.image("eship", "/assets/images/eship.png");
-    this.load.image("ebullet", "/assets/images/ebullet.png");
-    this.load.image("bullet", "/assets/images/bullet.png");
+    this.load.image("eship", "/assets/images/shark2.png");
+    this.load.image("gun", "/assets/images/gun.png");
+    this.load.image("ebullet", "/assets/images/bullet.png");
+    this.load.image("bullet", "/assets/images/rainbow3.png");
 
     this.load.spritesheet("rocks", "/assets/images/rocks.png", {
       frameWidth: 120,
