@@ -162,12 +162,6 @@ export default class Scene1 extends Phaser.Scene{
          return this.playerBoy;
     }
 
-
-    exitThisGame(){
-        this.scene.start('ScorePage', {score : score});
-        this.sound.play(SOUND_STAGE_CLEAR);
-    }
-
     // update() will be executed every over and over ('update loop')
     update(){
 
@@ -229,11 +223,10 @@ export default class Scene1 extends Phaser.Scene{
 
             if ((flagCharTouchedBed == true) && (flagCharTouchedBedOld == false)){
                 storeTimeValue = timeTick;
-                console.log(storeTimeValue);
+                //console.log(storeTimeValue);
             }
             flagCharTouchedBedOld = flagCharTouchedBed;
             if (storeTimeValue + 4 == timeTick && storeTimeValue !== 0){
-                this.playerBoy.destroy(true);
                 this.scene.start(SCENE_NEXT);
             }
 
