@@ -29,6 +29,9 @@ class SceneOver extends Phaser.Scene {
     this.alignGrid.placeAtIndex(93, btnStart);
 
     emitter.on('start_game', this.startGame, this);
+    var sb = new SoundButtons({
+      scene: this
+    });
   }
   startGame() {
     this.scene.start('SceneMain');
