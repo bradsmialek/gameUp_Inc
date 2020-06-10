@@ -8,18 +8,33 @@ class SceneMain extends Phaser.Scene {
   create() {
     //define our objects
     //set up 
+
     emitter = new Phaser.Events.EventEmitter();
     controller = new Controller();
     var mediaManager = new MediaManager({
       scene: this
     });
 
-    var sb = new SoundButtons({
-      scene: this
+    mediaManager.setBackgroundMusic("backgroundmusic");
+
+    var frameNames = this.anims.generateFrameNumbers('exp');
+    var f2 = frameNames.slice();
+    f2.reverse();
+    var f3 = f2.concat(frameNames);
+
+    this.anims.create({
+      key: 'boom',
+      frames: f3,
+      frameRate: 48,
+      repeat: false
     });
 
-    this.shield = 100;
-    this.eshield = 100;
+
+
+    this.shield = 10;
+    this.eshield = 10;
+
+    model.playerWon = true;
 
     this.centerX = game.config.width / 2;
     this.centerY = game.config.height / 2;
@@ -57,32 +72,26 @@ class SceneMain extends Phaser.Scene {
     //
     //
 
-
-    var frameNames = this.anims.generateFrameNumbers('exp');
-    var f2 = frameNames.slice();
-    f2.reverse();
-    var f3 = f2.concat(frameNames);
-
-    this.anims.create({
-      key: 'boom',
-      frames: f3,
-      frameRate: 48,
-      repeat: false
-    });
-
     this.eship = this.physics.add.sprite(this.centerX, 0, 'eship');
     this.eship.body.collideWorldBounds = true;
     Align.scaleToGameW(this.eship, .35);
     this.makeInfo();
     this.setColliders();
+    var sb = new SoundButtons({
+      scene: this
+    });
   }
 
   setColliders() {
+
+    this.physics.add.collider(this.bulletGroup, this.eship, this.damageEnemy, null, this);
+    this.physics.add.collider(this.ebulletGroup, this.astronaut, this.damagePlayer, null, this);
+  }
+
+  setRockColliders() {
     this.physics.add.collider(this.rockGroup);
     this.physics.add.collider(this.bulletGroup, this.rockGroup, this.destroyRock, null, this);
     this.physics.add.collider(this.ebulletGroup, this.rockGroup, this.destroyRock, null, this);
-    this.physics.add.collider(this.bulletGroup, this.eship, this.damageEnemy, null, this);
-    this.physics.add.collider(this.ebulletGroup, this.astronaut, this.damagePlayer, null, this);
     this.physics.add.collider(this.rockGroup, this.astronaut, this.rockHitPlayer, null, this);
     this.physics.add.collider(this.rockGroup, this.eship, this.rockHitEnemy, null, this);
   }
@@ -119,15 +128,16 @@ class SceneMain extends Phaser.Scene {
         child.body.setVelocity(vx * speed, vy * speed);
 
       }.bind(this));
+      this.setRockColliders();
     }
   }
 
   makeInfo() {
-    this.text1 = this.add.text(0, 0, "Sheild\n100", {
+    this.text1 = this.add.text(0, 0, "Sheild\n10", {
       align: 'center',
       backgroundColor: '#000000'
     });
-    this.text2 = this.add.text(0, 0, "Enemy Sheild\n100", {
+    this.text2 = this.add.text(0, 0, "Enemy Sheild\n10", {
       align: 'center',
       backgroundColor: '#000000'
     });
@@ -144,7 +154,7 @@ class SceneMain extends Phaser.Scene {
     //
     //
     this.uiGrid.placeAtIndex(2, this.text1);
-    this.uiGrid.placeAtIndex(9, this.text2);
+    this.uiGrid.placeAtIndex(8, this.text2);
     //
     //
     this.icon1 = this.add.image(0, 0, "astronaut");
@@ -153,7 +163,7 @@ class SceneMain extends Phaser.Scene {
     Align.scaleToGameW(this.icon2, .1);
 
     this.uiGrid.placeAtIndex(1, this.icon1);
-    this.uiGrid.placeAtIndex(7, this.icon2);
+    this.uiGrid.placeAtIndex(6, this.icon2);
 
     this.icon1.angle = 0;
     this.icon2.angle = 0;
@@ -169,16 +179,25 @@ class SceneMain extends Phaser.Scene {
   downPlayer() {
     this.shield--;
     this.text1.setText('Shield\n' + this.shield);
+    if (this.shield == 0) {
+      model.playerWon = false;
+      this.scene.start('SceneOver')
+    }
   }
 
   downEnemy() {
     this.eshield--;
     this.text2.setText('Enemy Shield\n' + this.eshield);
+    if (this.eshield == 0) {
+      model.playerWon = true;
+      this.escene.start('SceneOver')
+    }
   }
 
   rockHitPlayer(astronaut, rock) {
     var explosion = this.add.sprite(rock.x, rock.y, 'exp');
     explosion.play('boom');
+    emitter.emit(G.PLAY_SOUND, "explode");
     rock.destroy();
     this.makeRocks();
     this.downPlayer();
@@ -187,6 +206,7 @@ class SceneMain extends Phaser.Scene {
   damagePlayer(astronaut, bullet) {
     var explosion = this.add.sprite(this.astronaut.x, this.astronaut.y, 'exp');
     explosion.play('boom');
+    emitter.emit(G.PLAY_SOUND, "explode");
     bullet.destroy();
     this.downPlayer();
 
@@ -194,6 +214,7 @@ class SceneMain extends Phaser.Scene {
   rockHitEnemy(ship, rock) {
     var explosion = this.add.sprite(rock.x, rock.y, 'exp');
     explosion.play('boom');
+    emitter.emit(G.PLAY_SOUND, "explode");
     rock.destroy();
     this.makeRocks();
     this.downEnemy();
@@ -201,6 +222,7 @@ class SceneMain extends Phaser.Scene {
   damageEnemy(astronaut, bullet) {
     var explosion = this.add.sprite(bullet.x, bullet.y, 'exp');
     explosion.play('boom');
+    emitter.emit(G.PLAY_SOUND, "explode");
     bullet.destroy();
 
     var angle2 = this.physics.moveTo(this.eship, this.astronaut.x, this.astronaut.y, 100);
@@ -215,6 +237,7 @@ class SceneMain extends Phaser.Scene {
     bullet.destroy();
     var explosion = this.add.sprite(rock.x, rock.y, 'exp');
     explosion.play('boom');
+    emitter.emit(G.PLAY_SOUND, "explode");
     rock.destroy();
     this.makeRocks();
   }
@@ -278,6 +301,7 @@ class SceneMain extends Phaser.Scene {
 
     bullet.angle = this.astronaut.angle;
     bullet.body.setVelocity(dirObj.tx * 200, dirObj.ty * 200);
+    emitter.emit(G.PLAY_SOUND, "laser");
   }
 
   showGun() {
@@ -303,7 +327,8 @@ class SceneMain extends Phaser.Scene {
     this.ebulletGroup.add(ebullet);
     Align.scaleToGameW(ebullet, .05);
     ebullet.body.angularVelocity = 20;
-    this.physics.moveTo(ebullet, this.astronaut.x, this.astronaut.y, 60);
+    this.physics.moveTo(ebullet, this.astronaut.x, this.astronaut.y, 100);
+    emitter.emit(G.PLAY_SOUND, "enemyShoot");
   }
 
   toDegrees(angle) {
@@ -324,25 +349,15 @@ class SceneMain extends Phaser.Scene {
     //constant running loop
 
     var distX = Math.abs(this.astronaut.x - this.tx);
-    //console.log(this.astronaut.x);
-    //console.log("distx", distX);
-
     var distY = Math.abs(this.astronaut.y - this.ty);
-    //console.log('distY', distY);
-    //console.log(distX < 10 && distY < 10);
+
 
     if (distX < 10 && distY < 10) {
       this.astronaut.body.setVelocity(0, 0);
     }
 
     var distX2 = Math.abs(this.astronaut.x - this.eship.x);
-    //console.log(this.astronaut.x);
-    //console.log("distx", distX);
-
     var distY2 = Math.abs(this.astronaut.y - this.eship.y);
-    //console.log('distY', distY);
-    //console.log(distX < 10 && distY < 10);
-
 
 
     if (distX2 < game.config.width / 5 && distY2 < game.config.height / 5) {

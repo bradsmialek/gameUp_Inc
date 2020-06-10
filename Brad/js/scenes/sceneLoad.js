@@ -18,6 +18,13 @@ class SceneLoad extends Phaser.Scene {
 
     this.load.image("button1", "/assets/images/ui/buttons/2/1.png");
     this.load.image("button2", "/assets/images/ui/buttons/2/5.png");
+
+    this.load.audio('explode', ["/assets/audio/explode.wav", "/assets/audio/explode.ogg"]);
+    this.load.audio('enemyShoot', ["/assets/audio/enemyShoot.wav", "/assets/audio/enemyShoot.ogg"]);
+    this.load.audio('laser', ["/assets/audio/laser.wav", "/assets/audio/laser.ogg"]);
+    this.load.audio('backgroundmusic', ["/assets/audio/background.mp3", "/assets/audio/background.ogg"]);
+
+
     this.load.image("toggleBack", "/assets/images/ui/toggles/1.png");
     this.load.image("sfxOff", "/assets/images/ui/icons/sfx_off.png");
     this.load.image("sfxOn", "/assets/images/ui/icons/sfx_on.png");
@@ -36,15 +43,10 @@ class SceneLoad extends Phaser.Scene {
       frameHeight: 90,
     })
 
-
     this.load.spritesheet("exp", "/assets/images/exp.png", {
       frameWidth: 64,
       frameHeight: 64,
     });
-
-
-
-
   }
   onProgress(value) {
     this.bar.setPercent(value);
