@@ -75,7 +75,7 @@ class Scene1 extends Phaser.Scene {
     //const box = this.physics.add.staticImage(200, 400, 'box');
     this.playerBoy = this.createPlayerBoy();
     const doorway = this.physics.add.staticImage(670, 480, 'door').setScale(1.1).refreshBody();
-    const bed = this.physics.add.staticImage(160, 520, 'bed');
+    const bed = this.physics.add.staticImage(180, 540, 'bed');
 
     const plant = this.physics.add.staticImage(30, 525, 'plant');
 
@@ -190,10 +190,7 @@ class Scene1 extends Phaser.Scene {
 
 
   exitThisGame() {
-    this.scene.start('ScorePage', {
-
-    });
-    // this.sound.play(SOUND_STAGE_CLEAR);
+    this.scene.start('BackToSleep')
   }
 
   // update() will be executed every over and over ('update loop')
@@ -261,7 +258,8 @@ class Scene1 extends Phaser.Scene {
       flagCharTouchedBedOld = flagCharTouchedBed;
       if (storeTimeValue + 4 == timeTick && storeTimeValue !== 0) {
         this.playerBoy.destroy(true);
-        this.scene.start(SCENE_NEXT);
+        this.scene.start();
+        // SCENE_NEXT
       }
 
     }
