@@ -440,8 +440,8 @@ class Game extends Phaser.Scene {
     if (timeSecond == 0) {
       timerMax = 90;
       this.scene.start('BackToSleep');
-      //this.scene.start('ScorePage', {score : score});
-      //Time 
+      c = 0;
+
     }
   }
 
