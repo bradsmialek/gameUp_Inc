@@ -64,16 +64,23 @@ var rocketCollected = false;
 var boxPhysicsRef = [];
 var bombsGroup;
 
+
+
 class Game extends Phaser.Scene {
   constructor() {
     super({
-      key: 'Game',
+      key: "Game",
+      // Phaser will decide use Canvas or WebGL 
+      width: 800,
+      height: 600,
+
       physics: {
         default: 'arcade',
         arcade: {
           gravity: {
             y: 300
-          }
+          },
+          debug: false
         }
       }
     }) // Scene 'game'
@@ -433,7 +440,7 @@ class Game extends Phaser.Scene {
       this.physics.add.collider(this.player, springPlatform, this.onSpringPlatform, null, this);
     }
     if (timeSecond == 0) {
-      this.scene.start('GameOver');
+      this.scene.start('BackToSleep');
       //this.scene.start('ScorePage', {score : score});
       //Time 
     }
@@ -569,6 +576,62 @@ class Game extends Phaser.Scene {
   }
 
 }
+
+class ScoreLabel extends Phaser.GameObjects.Text {
+
+  constructor(scene, x, y, score, style) {
+    super(scene, x, y, score, style);
+    this.score = score;
+  }
+
+  setScore(score) {
+    this.score = score;
+    this.updateScoreText();
+  }
+  getScore() {
+    return this.score;
+  }
+  add(points) {
+    this.setScore(this.score + points);
+  }
+  subtract(points) {
+    this.setScore(this.score - points);
+  }
+  updateScoreText() {
+    this.setText(formatScore(this.score));
+  }
+}
+
+class BombSpawner {
+
+
+  constructor(scene, bombKey = 'bomb') {
+    this.scene = scene
+    this.key = bombKey
+
+    this._group = this.scene.physics.add.group({
+      key: this.key,
+      collideWorldBounds: true
+    })
+  }
+
+  get group() {
+    return this._group
+  }
+
+  spawn(playerX = 0, bounceValue) {
+    const x = (playerX < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400)
+
+    const bomb = this.group.create(x, 16, this.key);
+    bomb.setBounce(bounceValue);
+    bomb.setCollideWorldBounds(true);
+    bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
+
+    return bomb
+  }
+}
+
+
 // For timer
 function onEvent() {
   c++;

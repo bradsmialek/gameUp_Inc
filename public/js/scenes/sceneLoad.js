@@ -38,6 +38,15 @@ class SceneLoad extends Phaser.Scene {
     this.load.image("ebullet", "/public/assets/images/bullet.png");
     this.load.image("bullet", "/public/assets/images/rainbow3.png");
 
+    this.load.image("bg_1", "/public/assets/images/p1.png");
+    this.load.image("bg_2", "/public/assets/images/p8.png");
+    this.load.image("bg_3", "/public/assets/images/p6.png");
+    this.load.image("bg_5", "/public/assets/images/BB.png");
+    /public/
+    this.load.image("bg_6", "/public/assets/images/BBT.png");
+    this.load.image("shuttle", "/public/assets/images/shuttle.png");
+    this.load.image("moons", "/public/assets/images/c.png");
+
 
     this.load.spritesheet("rocks", "/public/assets/images/rocks.png", {
       frameWidth: 120,
@@ -48,6 +57,12 @@ class SceneLoad extends Phaser.Scene {
       frameWidth: 64,
       frameHeight: 64,
     });
+
+    this.load.spritesheet('bg_4', '/public/assets/images/c.png', {
+      frameWidth: 285,
+      frameHeight: 285
+    });
+
   }
 
   // Shows progress of game load

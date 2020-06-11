@@ -41,7 +41,7 @@ class SceneTitle extends Phaser.Scene {
     });
   }
   startGame() {
-    this.scene.start('Scene1');
+    this.scene.start('RocketScene'); //Scene1
     // this.scene.start('SceneMain');
   }
   update() {}

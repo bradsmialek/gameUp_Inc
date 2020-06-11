@@ -21,44 +21,42 @@ class RocketScene extends Phaser.Scene {
     super('RocketScene')
   }
   preload() {
-    //load images and sound
-    // this.load.image("face", "images/face.png");
 
+    this.load.image('shuttle', '/public/assets/images/shuttle.png')
   }
 
   create() {
+    // create an tiled sprite with the size of our game screen
+    this.bg_1 = this.add.tileSprite(0, 0, game.config.width, game.config.height, "bg_1");
+    // Set its pivot to the top left corner
+    this.bg_1.setOrigin(0, 0);
+    // fixe it so it won't move when the camera moves.
+    // Instead we are moving its texture on the update
+    this.bg_1.setScrollFactor(0);
 
-    // this.face = this.add.image(100, 200, "face");
+    this.bg_5 = this.add.tileSprite(0, 0, game.config.width, game.config.height, "bg_5");
+    this.bg_5.setOrigin(0, 0);
+    this.bg_5.setScrollFactor(0);
 
+    this.bg_6 = this.add.tileSprite(0, 0, game.config.width, game.config.height, "bg_6");
+    this.bg_6.setOrigin(0, 0);
+    this.bg_6.setScrollFactor(0);
 
-    //   var frameNames = this.anims.generateFrameNumbers('rocket');
+    this.spaceShuttle = this.add.sprite(game.config.width / 2, game.config.height * 1, "shuttle");
 
-    //   this.anims.create({
-    //     key: 'fly',
-    //     frames: frameNames,
-    //     frameRate: 8,
-    //     repeat: -1
-    //   });
-
-    //   this.char.play('fly')
-
-    //   this.tweens.add({
-    //     targets: this.char,
-    //     duration: 5000,
-    //     x: game.config.width,
-    //     y: 0,
-    //     alpha: 0
-    //   });
-
-    exitThisScene();
   }
 
-  exitThisScene() {
-    this.scene.start('SceneMain')
+  moveRocket(rocket) {
+    rocket.y--;
   }
 
   update() {
-    //constant running loop
-    // this.char.x++
+
+    this.moveRocket(this.spaceShuttle);
+
+    this.bg_1.tilePositionY -= 1;
+    this.bg_5.tilePositionY -= 2;
+    this.bg_6.tilePositionY -= 4;
   }
+
 }

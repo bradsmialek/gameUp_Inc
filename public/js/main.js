@@ -29,8 +29,8 @@ window.onload = function () {
   if (isMobile == -1) {
     var config = {
       type: Phaser.AUTO,
-      width: 1280,
-      height: 900,
+      width: 800,
+      height: 600,
       parent: 'phaser-game',
       physics: {
         default: 'arcade',
@@ -41,7 +41,7 @@ window.onload = function () {
           debug: true
         }
       },
-      scene: [SceneLoad, SceneTitle, Scene1, Game, BackToSleep, RocketScene, SceneMain, BackToSleep2, EndWake, SceneOver]
+      scene: [SceneLoad, SceneTitle, RocketScene]
     };
   } else {
     var config = {
@@ -67,4 +67,4 @@ window.onload = function () {
   game = new Phaser.Game(config);
 }
 
-// [Scene1, TempScene, Game, ScorePage, GameOver]
+// [SceneLoad, SceneTitle, Scene1, Game, BackToSleep, RocketScene, SceneMain, BackToSleep2, EndWake, SceneOver
