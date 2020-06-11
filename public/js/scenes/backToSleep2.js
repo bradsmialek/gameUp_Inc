@@ -1,7 +1,7 @@
 /**
- * File: /Users/bradsmialek/tlg/javaScript/projects/gameUp_Inc/public/js/scenes/wakeup.js
+ * File: /Users/bradsmialek/tlg/javaScript/projects/gameUp_Inc/public/js/scenes/backToSleep2.js
  * Project: /Users/bradsmialek/tlg/javaScript/projects/gameUp_Inc
- * Created Date: Wednesday, June 10th 2020, 7:24:14 pm
+ * Created Date: Wednesday, June 10th 2020, 8:38:34 pm
  * Author: Brad Smialek
  * ------------------------------------
  * Quokka: option q, q
@@ -13,7 +13,6 @@
  * comment: option x
  * comment: option y
  */
-
 
 // const SOUND_DREAM = 'havingDreamSound';
 // const BOY = 'boy';
@@ -39,9 +38,9 @@
 // var doorCloseSoundPlayed = false;
 // var starsSoundPlayed = false;
 
-class EndWake extends Phaser.Scene {
+class BackToSleep2 extends Phaser.Scene {
   constructor() {
-    super('EndWake') // Scene 'Scene1' // before game
+    super('BackToSleep2') // Scene 'Scene1' // before game
     this.playerBoy = undefined;
     this.cursors = undefined;
   }

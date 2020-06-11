@@ -15,33 +15,33 @@
  */
 
 
-const SOUND_DREAM = 'havingDreamSound';
-const BOY = 'boy';
-const SOUND_DOORCLOSE = 'doorCloseSound';
-const SOUND_STAIRS = 'stairsSound';
-const SCENE_NEXT = 'Game';
+// const SOUND_DREAM = 'havingDreamSound';
+// const BOY = 'boy';
+// const SOUND_DOORCLOSE = 'doorCloseSound';
+// const SOUND_STAIRS = 'stairsSound';
+// const SCENE_NEXT = 'Game';
 
-var timedEvent;
-var c = 0;
-var timeSecondOld = 0;
-var timeSecond = 0;
-var timerRemaining;
-var timeTick = 0;
+// var timedEvent;
+// var c = 0;
+// var timeSecondOld = 0;
+// var timeSecond = 0;
+// var timerRemaining;
+// var timeTick = 0;
 
-var textMom;
-var textChild;
-var spaceKeyStatus = 0;
-var oldCursor = 1;
-var disableCursor = true;
-var flagCharTouchedBed = false;
-var flagCharTouchedBedOld = false;
-var storeTimeValue = 0;
-var doorCloseSoundPlayed = false;
-var starsSoundPlayed = false;
+// var textMom;
+// var textChild;
+// var spaceKeyStatus = 0;
+// var oldCursor = 1;
+// var disableCursor = true;
+// var flagCharTouchedBed = false;
+// var flagCharTouchedBedOld = false;
+// var storeTimeValue = 0;
+// var doorCloseSoundPlayed = false;
+// var starsSoundPlayed = false;
 
-class Scene1 extends Phaser.Scene {
+class BackToSleep extends Phaser.Scene {
   constructor() {
-    super('Scene1') // Scene 'Scene1' // before game
+    super('BackToSleep') // Scene 'Scene1' // before game
     this.playerBoy = undefined;
     this.cursors = undefined;
   }

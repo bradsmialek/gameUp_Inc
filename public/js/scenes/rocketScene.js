@@ -54,9 +54,7 @@ class RocketScene extends Phaser.Scene {
   }
 
   exitThisScene() {
-    this.scene.start('SceneMain', {
-
-    });
+    this.scene.start('SceneMain')
   }
 
   update() {
