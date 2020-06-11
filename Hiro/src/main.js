@@ -10,17 +10,17 @@ import TempScene from './scenes/TempScene.js';
 //console.log("Hello World");
 
 export default new Phaser.Game({
-    type: Phaser.AUTO, // Phaser will decide use Canvas or WebGL 
-    width: 800,
-    height: 600,
-    scene: [Scene1, Scene2, TempScene, , ScorePage, GameOver],
-    physics:{
-        default: 'arcade',
-        arcade:{
-            gravity:{
-                y: 300
-            },
-            debug: false
-        }
+  type: Phaser.AUTO, // Phaser will decide use Canvas or WebGL 
+  width: 800,
+  height: 600,
+  scene: [Scene1, TempScene, Game, ScorePage, GameOver],
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: {
+        y: 300
+      },
+      debug: false
     }
+  }
 })
