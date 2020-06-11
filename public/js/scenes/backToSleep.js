@@ -61,7 +61,7 @@ class BackToSleep extends Phaser.Scene {
       cols: 11,
       scene: this
     });
-    this.alignGrid.showNumbers();
+
 
 
     var btn1 = new FlatButton({
