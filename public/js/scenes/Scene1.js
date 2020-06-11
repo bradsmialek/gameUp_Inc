@@ -1,5 +1,3 @@
-import Phaser from '/Hiro/src/lib/phaser.js';
-
 const SOUND_DREAM = 'havingDreamSound';
 const BOY = 'boy';
 const SOUND_DOORCLOSE = 'doorCloseSound';
@@ -24,7 +22,7 @@ var storeTimeValue = 0;
 var doorCloseSoundPlayed = false;
 var starsSoundPlayed = false;
 
-export default class Scene1 extends Phaser.Scene {
+class Scene1 extends Phaser.Scene {
 
   constructor() {
     super('Scene1') // Scene 'Scene1' // before game

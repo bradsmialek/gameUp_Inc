@@ -3,8 +3,8 @@ class SceneTitle extends Phaser.Scene {
     super('SceneTitle');
   }
   preload() {
-    this.load.image("button1", "../assets/images/ui/buttons/2/1.png");
-    this.load.image("title", "../assets/images/dream.jpg");
+    this.load.image("button1", "/public/assets/images/ui/buttons/2/1.png");
+    this.load.image("title", "/public/assets/images/dream.jpg");
   }
   create() {
     emitter = new Phaser.Events.EventEmitter();
@@ -34,13 +34,15 @@ class SceneTitle extends Phaser.Scene {
     });
     this.alignGrid.placeAtIndex(93, btnStart);
 
+    //TODO: add mario brothers here we go noise
     emitter.on('start_game', this.startGame, this);
     var sb = new SoundButtons({
       scene: this
     });
   }
   startGame() {
-    this.scene.start('SceneMain');
+    this.scene.start('Scene1');
+    // this.scene.start('SceneMain');
   }
   update() {}
 }

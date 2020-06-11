@@ -1,25 +1,6 @@
-/**
- * File: /Users/bradsmialek/tlg/javaScript/projects/gameUp_Inc/Hiro/src/scenes/Game.js
- * Project: /Users/bradsmialek/tlg/javaScript/projects/gameUp_Inc
- * Created Date: Wednesday, June 10th 2020, 3:14:53 pm
- * Author: Brad Smialek
- * ------------------------------------
- * Quokka: option q, q
- * Comments: option d
- * Highlight Line Wrap: command h, '
- * Peacock: option p, c
- * Line String Log: command L
- * Down log: command k
- * comment: option x
- * comment: option y
- */
+// import ScoreLabel from '/Hiro/src/game/ScoreLabel.js';
+// import BombSpawner from '/Hiro/src/game/BombSpawner.js';
 
-
-import Phaser from '/Hiro/src/lib/phaser.js';
-import ScoreLabel from '/Hiro/src/game/ScoreLabel.js';
-import BombSpawner from '/Hiro/src/game/BombSpawner.js';
-
-//import GameOver from '/src/scenes/GameOver.js';
 
 const PLAY_TIME = 90; // Seconds
 const GROUND_KEY = 'ground';
@@ -83,7 +64,7 @@ var rocketCollected = false;
 var boxPhysicsRef = [];
 var bombsGroup;
 
-export default class Game extends Phaser.Scene {
+class Game extends Phaser.Scene {
 
   constructor() {
     super('Game') // Scene 'game'

@@ -35,10 +35,13 @@ window.onload = function () {
       physics: {
         default: 'arcade',
         arcade: {
+          // gravity: {
+          //   y: 300
+          // },
           debug: true
         }
       },
-      scene: [SceneLoad, SceneTitle, SceneMain, SceneOver]
+      scene: [SceneLoad, SceneTitle, Scene1, Game, SceneMain, SceneOver]
     };
   } else {
     var config = {
@@ -49,10 +52,13 @@ window.onload = function () {
       physics: {
         default: 'arcade',
         arcade: {
+          // gravity: {
+          //   y: 300
+          // },
           debug: true
         }
       },
-      scene: [SceneLoad, SceneTitle, SceneMain, SceneOver]
+      scene: [SceneLoad, SceneTitle, Scene1, Game, SceneMain, SceneOver]
     };
   }
   G = new Constants();
@@ -60,3 +66,5 @@ window.onload = function () {
   model.isMobile = isMobile;
   game = new Phaser.Game(config);
 }
+
+// [Scene1, TempScene, Game, ScorePage, GameOver]
