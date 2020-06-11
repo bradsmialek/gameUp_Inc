@@ -1,7 +1,6 @@
 // import ScoreLabel from '/Hiro/src/game/ScoreLabel.js';
 // import BombSpawner from '/Hiro/src/game/BombSpawner.js';
 
-
 const PLAY_TIME = 90; // Seconds
 const GROUND_KEY = 'ground';
 const GROUND_KEY_MAIN = 'ground_main';
@@ -35,6 +34,7 @@ const SOUND_BOX = 'boxSound';
 const SOUND_ROCKET_PICKUP = 'rocketPickUpSound';
 const SOUND_ROCKET_FIRE = 'rocketFireSound';
 const SOUND_STAGE_CLEAR = 'stageClearSound';
+const formatScore = (score) => `Score: ${score}`;
 
 var size = 1.0;
 var bombBounceValue = 0.1;
@@ -65,9 +65,19 @@ var boxPhysicsRef = [];
 var bombsGroup;
 
 class Game extends Phaser.Scene {
-
   constructor() {
-    super('Game') // Scene 'game'
+    super({
+      key: 'Game',
+      physics: {
+        default: 'arcade',
+        arcade: {
+          gravity: {
+            y: 300
+          }
+        }
+      }
+    }) // Scene 'game'
+
     this.player = undefined;
     this.cursors = undefined;
     this.scoreLabel = undefined;
@@ -77,57 +87,53 @@ class Game extends Phaser.Scene {
     //this.score = score;
   }
 
-  init() {
-
-  }
-
   /*** preload() and create() wiil be called by Phaser at appropriate timing ***/
   // specify images, audio, or other assets to load before starting the Scene
   preload() {
 
-    this.load.image('sky', '.././assets/images/bg_shroom.png');
-    this.load.image(GROUND_KEY, '.././assets/images/platform.png');
-    this.load.image(GROUND_KEY_MAIN, '.././assets/images/sand.png');
-    this.load.image(MUSHROOM[0], '.././assets/images/tallShroom_brown.png');
-    this.load.image(MUSHROOM[1], '.././assets/images/tallShroom_red.png');
-    this.load.image(MUSHROOM[2], '.././assets/images/tallShroom_tan.png');
-    this.load.image(SIGN_EXIT, '.././assets/images/signExit.png');
-    this.load.image(WINDOW, '.././assets/images/window.png');
-    this.load.image(KEY_BLUE, '.././assets/images/keyBlue.png');
-    this.load.image(BOX_1, '.././assets/images/boxCrate_single.png');
-    this.load.image(BOX_2, '.././assets/images/boxCrate_double.png');
-    this.load.image(SPRING[0], '.././assets/images/spring_in.png');
-    this.load.image(SPRING[1], '.././assets/images/spring.png');
-    this.load.image(SPRING[2], '.././assets/images/sprung.png');
-    this.load.image(PLANET[0], '.././assets/images/planetLeft.png');
-    this.load.image(PLANET[1], '.././assets/images/planetMid.png');
-    this.load.image(PLANET[2], '.././assets/images/planetRight.png');
-    this.load.image(GEM[0], '.././assets/images/gemBlue.png');
-    this.load.image(GEM[1], '.././assets/images/gemGreen.png');
-    this.load.image(GEM[2], '.././assets/images/gemRed.png');
-    this.load.image(ROCKET, '.././assets/images/spaceShips_007.png');
+    this.load.image('sky', '/public/assets/images/bg_shroom.png');
+    this.load.image(GROUND_KEY, '/public/assets/images/platform.png');
+    this.load.image(GROUND_KEY_MAIN, '/public/assets/images/sand.png');
+    this.load.image(MUSHROOM[0], '/public/assets/images/tallShroom_brown.png');
+    this.load.image(MUSHROOM[1], '/public/assets/images/tallShroom_red.png');
+    this.load.image(MUSHROOM[2], '/public/assets/images/tallShroom_tan.png');
+    this.load.image(SIGN_EXIT, '/public/assets/images/signExit.png');
+    this.load.image(WINDOW, '/public/assets/images/window.png');
+    this.load.image(KEY_BLUE, '/public/assets/images/keyBlue.png');
+    this.load.image(BOX_1, '/public/assets/images/boxCrate_single.png');
+    this.load.image(BOX_2, '/public/assets/images/boxCrate_double.png');
+    this.load.image(SPRING[0], '/public/assets/images/spring_in.png');
+    this.load.image(SPRING[1], '/public/assets/images/spring.png');
+    this.load.image(SPRING[2], '/public/assets/images/sprung.png');
+    this.load.image(PLANET[0], '/public/assets/images/planetLeft.png');
+    this.load.image(PLANET[1], '/public/assets/images/planetMid.png');
+    this.load.image(PLANET[2], '/public/assets/images/planetRight.png');
+    this.load.image(GEM[0], '/public/assets/images/gemBlue.png');
+    this.load.image(GEM[1], '/public/assets/images/gemGreen.png');
+    this.load.image(GEM[2], '/public/assets/images/gemRed.png');
+    this.load.image(ROCKET, '/public/assets/images/spaceShips_007.png');
 
-    this.load.image(STAR_KEY, '.././assets/images/star.png');
-    this.load.image(BOMB_KEY, '.././assets/images/bomb.png');
-    this.load.image(MUSH_ROOM, '.././assets/images/mushroom_brown.png');
-    this.load.image(GOLD_COIN, '.././assets/images/goldCoin.png');
-    this.load.image(BRONZE_COIN, '.././assets/images/coinBronze.png');
-    this.load.image(SILVER_COIN, '.././assets/images/coinSilver.png');
-    this.load.spritesheet(DUDE_KEY, '.././assets/images/dude.png', {
+    this.load.image(STAR_KEY, '/public/assets/images/star.png');
+    this.load.image(BOMB_KEY, '/public/assets/images/bomb.png');
+    this.load.image(MUSH_ROOM, '/public/assets/images/mushroom_brown.png');
+    this.load.image(GOLD_COIN, '/public/assets/images/goldCoin.png');
+    this.load.image(BRONZE_COIN, '/public/assets/images/coinBronze.png');
+    this.load.image(SILVER_COIN, '/public/assets/images/coinSilver.png');
+    this.load.spritesheet(DUDE_KEY, '/public/assets/images/dude.png', {
       frameWidth: 32,
       frameHeight: 48
     });
 
-    this.load.audio(SOUND_DRUM, '.././assets/sound/drum.wav');
-    this.load.audio(SOUND_COIN, '.././assets/sound/collectCoin.wav');
-    this.load.audio(SOUND_MUSHROOM, '.././assets/sound/collectMushroom.wav');
-    this.load.audio(SOUND_STAR, '.././assets/sound/highDown.mp3');
-    this.load.audio(SOUND_GEM, '.././assets/sound/collectGem.wav');
-    this.load.audio(SOUND_JUMP, '.././assets/sound/jump.wav');
-    this.load.audio(SOUND_BOX, '.././assets/sound/stepOnBox.wav');
-    this.load.audio(SOUND_ROCKET_PICKUP, '.././assets/sound/rocketPickUp.wav');
-    this.load.audio(SOUND_ROCKET_FIRE, '.././assets/sound/rocketFire4.mp3');
-    this.load.audio(SOUND_STAGE_CLEAR, '.././assets/sound/stageClear.wav');
+    this.load.audio(SOUND_DRUM, '/public/assets/sound/drum.wav');
+    this.load.audio(SOUND_COIN, '/public/assets/sound/collectCoin.wav');
+    this.load.audio(SOUND_MUSHROOM, '/public/assets/sound/collectMushroom.wav');
+    this.load.audio(SOUND_STAR, '/public/assets/sound/highDown.mp3');
+    this.load.audio(SOUND_GEM, '/public/assets/sound/collectGem.wav');
+    this.load.audio(SOUND_JUMP, '/public/assets/sound/jump.wav');
+    this.load.audio(SOUND_BOX, '/public/assets/sound/stepOnBox.wav');
+    this.load.audio(SOUND_ROCKET_PICKUP, '/public/assets/sound/rocketPickUp.wav');
+    this.load.audio(SOUND_ROCKET_FIRE, '/public/assets/sound/rocketFire4.mp3');
+    this.load.audio(SOUND_STAGE_CLEAR, '/public/assets/sound/stageClear.wav');
 
 
   }
@@ -351,8 +357,8 @@ class Game extends Phaser.Scene {
   }
 
   exitThisGame() {
-    this.scene.start('ScorePage', {
-      score: score
+    this.scene.start('RocketScene', {
+
     });
     this.sound.play(SOUND_STAGE_CLEAR);
   }

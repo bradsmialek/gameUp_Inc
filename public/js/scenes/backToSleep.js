@@ -1,3 +1,20 @@
+/**
+ * File: /Users/bradsmialek/tlg/javaScript/projects/gameUp_Inc/public/js/scenes/cut1.js
+ * Project: /Users/bradsmialek/tlg/javaScript/projects/gameUp_Inc
+ * Created Date: Wednesday, June 10th 2020, 7:23:21 pm
+ * Author: Brad Smialek
+ * ------------------------------------
+ * Quokka: option q, q
+ * Comments: option d
+ * Highlight Line Wrap: command h, '
+ * Peacock: option p, c
+ * Line String Log: command L
+ * Down log: command k
+ * comment: option x
+ * comment: option y
+ */
+
+
 const SOUND_DREAM = 'havingDreamSound';
 const BOY = 'boy';
 const SOUND_DOORCLOSE = 'doorCloseSound';
