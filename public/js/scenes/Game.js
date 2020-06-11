@@ -10,7 +10,7 @@ const BRONZE_COIN = 'bronzeCoin';
 const SILVER_COIN = 'silverCoin';
 const MUSHROOM = ['tallShroom_brown', 'tallShroom_red', 'tallShroom_tan'];
 const SIGN_EXIT = 'signExit';
-const WINDOW = 'window';
+const SHUTTLE = 'shuttle';
 const KEY_BLUE = 'keyBlue';
 const BOX_1 = 'box1';
 const BOX_2 = 'box2';
@@ -102,7 +102,7 @@ class Game extends Phaser.Scene {
     this.load.image(MUSHROOM[1], '/public/assets/images/tallShroom_red.png');
     this.load.image(MUSHROOM[2], '/public/assets/images/tallShroom_tan.png');
     this.load.image(SIGN_EXIT, '/public/assets/images/signExit.png');
-    this.load.image(WINDOW, '/public/assets/images/shuttle.png');
+    this.load.image(SHUTTLE, '/public/assets/images/shuttle.png');
     this.load.image(KEY_BLUE, '/public/assets/images/keyBlue.png');
     this.load.image(BOX_1, '/public/assets/images/boxCrate_single.png');
     this.load.image(BOX_2, '/public/assets/images/boxCrate_double.png');
@@ -146,7 +146,7 @@ class Game extends Phaser.Scene {
   // Create() is called once all the assets for the Scene have been loaded
   // Only assets that have been loaded can be used in create()
   create() {
-
+    // timerMax = 90;
     this.add.image(400, 300, 'sky');
 
 
@@ -207,7 +207,7 @@ class Game extends Phaser.Scene {
     this.physics.add.collider(this.player, coinSilver, this.collectSilverCoin, null, this);
 
     /** Exit window **/
-    const exitWindow = this.physics.add.staticImage(765, 98, WINDOW).setScale(0.6).refreshBody();
+    const exitWindow = this.physics.add.staticImage(765, 98, SHUTTLE).setScale(0.6).refreshBody();
     this.physics.add.collider(this.player, exitWindow, this.exitThisGame, null, this);
 
 

@@ -38,10 +38,10 @@ window.onload = function () {
           // gravity: {
           //   y: 300
           // },
-          debug: true
+          debug: false
         }
       },
-      scene: [SceneLoad, SceneTitle, RocketScene, Game, SceneMain, EndWake, BackToSleep]
+      scene: [SceneLoad, SceneTitle, Scene1, Game, BackToSleep, RocketScene, SceneMain, BackToSleep2, EndWake, SceneOver]
     };
   } else {
     var config = {
@@ -55,7 +55,7 @@ window.onload = function () {
           // gravity: {
           //   y: 300
           // },
-          debug: true
+          debug: false
         }
       },
       scene: [SceneLoad, SceneTitle, Scene1, Game, BackToSleep, RocketScene, SceneMain, BackToSleep2, EndWake, SceneOver]
