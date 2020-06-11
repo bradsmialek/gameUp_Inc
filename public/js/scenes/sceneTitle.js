@@ -135,7 +135,7 @@ class SceneTitle extends Phaser.Scene {
   startGame() {
     console.log('starting');
 
-    this.scene.start('Scene1'); //Scene1    RocketScene  Game   SceneMain   EndWake
+    this.scene.start('RocketScene'); //Scene1    RocketScene  Game   SceneMain   EndWake
 
   }
 

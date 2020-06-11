@@ -183,7 +183,7 @@ class SceneMain extends Phaser.Scene {
     this.text1.setText('Shield\n' + this.shield);
     if (this.shield == 0) {
       model.playerWon = false;
-      this.scene.start('BackToSleep')
+      this.scene.start('BackToSleep2')
     }
   }
 
