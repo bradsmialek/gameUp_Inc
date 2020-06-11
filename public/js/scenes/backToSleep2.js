@@ -39,9 +39,9 @@
 // var doorCloseSoundPlayed = false;
 // var starsSoundPlayed = false;
 
-class BackToSleep extends Phaser.Scene {
+class BackToSleep2 extends Phaser.Scene {
   constructor() {
-    super('BackToSleep')
+    super('BackToSleep2')
     this.playerBoy = undefined;
     this.cursors = undefined;
   }

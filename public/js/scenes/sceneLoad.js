@@ -67,16 +67,7 @@ class SceneLoad extends Phaser.Scene {
     this.load.image('plant', '/public/assets/images/pottedPlant.png');
     this.load.image('books', '/public/assets/images/books.png');
 
-    this.load.image('mist', '/public/assets/images/01_Mist.png');
-    this.load.image('bushes', '/public/assets/images/02_Bushes.png');
-    this.load.image('particles', '/public/assets/images/03_Particles.png');
-    this.load.image('forest', '/public/assets/images/04_Forest.png');
-    this.load.image('moreParticles', '/public/assets/images/05_Particles.png');
-    this.load.image('forest1', '/public/assets/images/06_Forest.png');
-    this.load.image('forest2', '/public/assets/images/07_Forest.png');
-    this.load.image('forest3', '/public/assets/images/08_Forest.png');
-    this.load.image('forest4', '/public/assets/images/09_Forest.png');
-    this.load.image('lightsky', '/public/assets/images/10_Sky.png');
+
 
 
     this.load.spritesheet("rocks", "/public/assets/images/rocks.png", {
@@ -92,6 +83,11 @@ class SceneLoad extends Phaser.Scene {
     this.load.spritesheet('bg_4', '/public/assets/images/c.png', {
       frameWidth: 285,
       frameHeight: 285
+    });
+
+    this.load.spritesheet("player", "/public/assets/images/dude.png", {
+      frameWidth: 37,
+      frameHeight: 39
     });
 
   }
