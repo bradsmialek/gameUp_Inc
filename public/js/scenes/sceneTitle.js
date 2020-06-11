@@ -5,6 +5,7 @@ class SceneTitle extends Phaser.Scene {
   preload() {
     this.load.image("button1", "/public/assets/images/ui/buttons/2/1.png");
     this.load.image("title", "/public/assets/images/dream.jpg");
+    this.load.image("house", "/public/assets/images/dreamone.jpg")
   }
   create() {
     emitter = new Phaser.Events.EventEmitter();
@@ -12,7 +13,7 @@ class SceneTitle extends Phaser.Scene {
     var mediaManager = new MediaManager({
       scene: this
     });
-    // mediaManager.setBackgroundMusic("backgroundmusic");
+    mediaManager.setBackgroundMusic("skywave");
 
     this.alignGrid = new AlignGrid({
       rows: 11,
@@ -36,12 +37,10 @@ class SceneTitle extends Phaser.Scene {
 
     //TODO: add mario brothers here we go noise
     emitter.on('start_game', this.startGame, this);
-    var sb = new SoundButtons({
-      scene: this
-    });
+
   }
   startGame() {
-    this.scene.start('Game'); //Scene1    RocketScene
+    this.scene.start('BackToSleep'); //Scene1    RocketScene  Game   SceneMain   EndWake
     // this.scene.start('SceneMain');
   }
   update() {}

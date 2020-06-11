@@ -42,20 +42,22 @@ class RocketScene extends Phaser.Scene {
     this.bg_6.setScrollFactor(0);
 
     this.spaceShuttle = this.add.sprite(game.config.width / 2, game.config.height * 1, "shuttle");
+    this.singleBoy = this.add.sprite(game.config.width / 2, game.config.height * 1, 'singleBoy');
 
   }
 
-  moveRocket(rocket) {
+  moveRocket(rocket, boy) {
     rocket.y--;
+    boy.y--;
   }
 
   update() {
 
-    this.moveRocket(this.spaceShuttle);
+    this.moveRocket(this.spaceShuttle, this.singleBoy);
 
-    this.bg_1.tilePositionY -= 1;
-    this.bg_5.tilePositionY -= 2;
-    this.bg_6.tilePositionY -= 4;
+    this.bg_1.tilePositionY -= .5;
+    this.bg_5.tilePositionY -= 3;
+    this.bg_6.tilePositionY -= 8;
   }
 
 }

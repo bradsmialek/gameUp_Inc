@@ -148,7 +148,7 @@ class Game extends Phaser.Scene {
   create() {
 
     this.add.image(400, 300, 'sky');
-    // this.spaceShuttle = this.add.image(, , "shuttle");
+
 
     /** Exit sign **/
     this.physics.add.staticImage(700, 110, SIGN_EXIT).setScale(0.4).refreshBody();

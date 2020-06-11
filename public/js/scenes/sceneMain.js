@@ -2,13 +2,12 @@ class SceneMain extends Phaser.Scene {
   constructor() {
     super('SceneMain');
   }
+
   preload() {
 
   }
-  create() {
-    //define our objects
-    //set up 
 
+  create() {
     emitter = new Phaser.Events.EventEmitter();
     controller = new Controller();
     var mediaManager = new MediaManager({
@@ -29,39 +28,39 @@ class SceneMain extends Phaser.Scene {
       repeat: false
     });
 
-
-
     this.shield = 10;
     this.eshield = 10;
 
     model.playerWon = true;
 
+    //
+    this.bg_1 = this.add.tileSprite(0, 0, game.config.width, game.config.height, "bg_1");
+    this.bg_1.setOrigin(0, 0);
+    this.bg_1.setScrollFactor(0);
+
+    this.bg_5 = this.add.tileSprite(0, 0, game.config.width, game.config.height, "bg_5");
+    this.bg_5.setOrigin(0, 0);
+    this.bg_5.setScrollFactor(0);
+
+    this.bg_6 = this.add.tileSprite(0, 0, game.config.width, game.config.height, "bg_6");
+    this.bg_6.setOrigin(0, 0);
+    this.bg_6.setScrollFactor(0);
+    //
+
     this.centerX = game.config.width / 2;
     this.centerY = game.config.height / 2;
-    this.background = this.add.image(0, 0, "background");
-    this.background.setOrigin(0, 0);
-    //
-    //
+    this.background = this.bg_6
     //
     //
     this.astronaut = this.physics.add.sprite(this.centerX, this.centerY, "astronaut");
-    this.astronaut.body.collideWorldBounds = true;
-    Align.scaleToGameW(this.astronaut, .05);
-    //
-    //
-
-    // this.background.scaleX = this.astronaut.scaleX;
-    // this.background.scaleY = this.astronaut.scaleY;
-    this.physics.world.setBounds(0, 0, this.background.displayWidth, this.displayHeight) //TODO: fix backgrounds
-    //
+    Align.scaleToGameW(this.astronaut, .025);
     //
     //
     this.background.setInteractive();
     this.background.on("pointerup", this.backgroundClicked, this);
     this.background.on("pointerdown", this.onDown, this);
     //
-    //  
-    this.cameras.main.setBounds(0, 0, this.background.displayWidth, this.background.displayHeight);
+    // 
     this.cameras.main.startFollow(this.astronaut, true);
     //
     //
@@ -71,19 +70,25 @@ class SceneMain extends Phaser.Scene {
     this.makeRocks();
     //
     //
-
     this.eship = this.physics.add.sprite(this.centerX, 0, 'eship');
     this.eship.body.collideWorldBounds = true;
-    Align.scaleToGameW(this.eship, .35);
+    Align.scaleToGameW(this.eship, .15);
     this.makeInfo();
     this.setColliders();
     var sb = new SoundButtons({
       scene: this
     });
+
+
+    this.myCam = this.cameras.main;
+    this.myCam.setBounds(0, 0, 2000, 0);
+
+    // making the camera follow the player
+    this.myCam.startFollow(this.astronaut);
+
   }
 
   setColliders() {
-
     this.physics.add.collider(this.bulletGroup, this.eship, this.damageEnemy, null, this);
     this.physics.add.collider(this.ebulletGroup, this.astronaut, this.damagePlayer, null, this);
   }
@@ -114,7 +119,7 @@ class SceneMain extends Phaser.Scene {
         child.x = xx;
         child.y = yy;
 
-        Align.scaleToGameW(child, .1)
+        Align.scaleToGameW(child, .05)
 
         var vx = Math.floor(Math.random() * 2) - 1;
         var vy = Math.floor(Math.random() * 2) - 1;
@@ -151,16 +156,15 @@ class SceneMain extends Phaser.Scene {
       cols: 11,
     })
     // this.uiGrid.showNumbers();
-    //
-    //
+
     this.uiGrid.placeAtIndex(2, this.text1);
     this.uiGrid.placeAtIndex(8, this.text2);
     //
     //
     this.icon1 = this.add.image(0, 0, "astronaut");
     this.icon2 = this.add.image(0, 0, "eship");
-    Align.scaleToGameW(this.icon1, .025);
-    Align.scaleToGameW(this.icon2, .1);
+    Align.scaleToGameW(this.icon1, .02);
+    Align.scaleToGameW(this.icon2, .08);
 
     this.uiGrid.placeAtIndex(1, this.icon1);
     this.uiGrid.placeAtIndex(6, this.icon2);
@@ -172,8 +176,6 @@ class SceneMain extends Phaser.Scene {
     this.text2.setScrollFactor(0);
     this.icon1.setScrollFactor(0);
     this.icon2.setScrollFactor(0);
-
-
   }
 
   downPlayer() {
@@ -181,7 +183,7 @@ class SceneMain extends Phaser.Scene {
     this.text1.setText('Shield\n' + this.shield);
     if (this.shield == 0) {
       model.playerWon = false;
-      this.scene.start('SceneOver')
+      this.scene.start('BackToSleep')
     }
   }
 
@@ -190,7 +192,7 @@ class SceneMain extends Phaser.Scene {
     this.text2.setText('Enemy Shield\n' + this.eshield);
     if (this.eshield == 0) {
       model.playerWon = true;
-      this.escene.start('SceneOver')
+      this.escene.start('EndAwake')
     }
   }
 
@@ -258,22 +260,16 @@ class SceneMain extends Phaser.Scene {
   backgroundClicked() {
     var elapsed = Math.abs(this.downTime - this.getTimer());
 
-    // console.log(elapsed);
-
     if (elapsed < 300) {
       var tx = this.background.input.localX;
       this.tx = tx;
-      //console.log(tx);
       var ty = this.background.input.localY;
       this.ty = ty;
-      //console.log(ty);
 
       var angle = this.physics.moveTo(this.astronaut, tx, ty, 100);
       angle = this.toDegrees(angle);
       this.astronaut.angle = angle;
-      //
-      //
-      //
+
       var distX2 = Math.abs(this.astronaut.x - tx);
       var distY2 = Math.abs(this.astronaut.y - ty);
 
@@ -293,10 +289,9 @@ class SceneMain extends Phaser.Scene {
   makeBullet() {
     this.showGun();
     var dirObj = this.getDirFromAngle(this.astronaut.angle);
-    // console.log(dirObj);
 
     var bullet = this.physics.add.sprite(this.astronaut.x + dirObj.tx * 30, this.astronaut.y + dirObj.tx * 30, 'bullet');
-    Align.scaleToGameW(bullet, .05);
+    Align.scaleToGameW(bullet, .02);
     this.bulletGroup.add(bullet);
 
     bullet.angle = this.astronaut.angle;
@@ -308,7 +303,7 @@ class SceneMain extends Phaser.Scene {
 
     var dirObj = this.getDirFromAngle(this.astronaut.angle);
     var gun = this.physics.add.sprite(this.astronaut.x + 12, this.astronaut.y + 5, 'gun');
-    Align.scaleToGameW(gun, .1); //TODO: fix gun on astro
+    Align.scaleToGameW(gun, .05); //TODO: fix gun on astro
     // var gun = this.physics.add.sprite(this.astronaut.x + dirObj.tx * 30, this.astronaut.y + dirObj.tx * 30, 'bullet');
     gun.angle = this.astronaut.angle;
     gun.body.setVelocity(dirObj.tx, dirObj.ty);
@@ -325,7 +320,7 @@ class SceneMain extends Phaser.Scene {
     this.lastEBullet = this.getTimer();
     var ebullet = this.physics.add.sprite(this.eship.x, this.eship.y, 'ebullet');
     this.ebulletGroup.add(ebullet);
-    Align.scaleToGameW(ebullet, .05);
+    Align.scaleToGameW(ebullet, .035);
     ebullet.body.angularVelocity = 20;
     this.physics.moveTo(ebullet, this.astronaut.x, this.astronaut.y, 100);
     emitter.emit(G.PLAY_SOUND, "enemyShoot");
@@ -346,11 +341,13 @@ class SceneMain extends Phaser.Scene {
   }
 
   update() {
-    //constant running loop
+
+    this.bg_1.tilePositionX = this.myCam.scrollX * .3;
+    this.bg_5.tilePositionX = this.myCam.scrollX * .6;
+    this.bg_6.tilePositionX = this.myCam.scrollX * 1;
 
     var distX = Math.abs(this.astronaut.x - this.tx);
     var distY = Math.abs(this.astronaut.y - this.ty);
-
 
     if (distX < 10 && distY < 10) {
       this.astronaut.body.setVelocity(0, 0);
@@ -358,7 +355,6 @@ class SceneMain extends Phaser.Scene {
 
     var distX2 = Math.abs(this.astronaut.x - this.eship.x);
     var distY2 = Math.abs(this.astronaut.y - this.eship.y);
-
 
     if (distX2 < game.config.width / 5 && distY2 < game.config.height / 5) {
       this.fireEBullet();

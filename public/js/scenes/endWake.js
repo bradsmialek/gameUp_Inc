@@ -1,7 +1,7 @@
 /**
- * File: /Users/bradsmialek/tlg/javaScript/projects/gameUp_Inc/public/js/scenes/wakeup.js
+ * File: /Users/bradsmialek/tlg/javaScript/projects/gameUp_Inc/public/js/scenes/cut1.js
  * Project: /Users/bradsmialek/tlg/javaScript/projects/gameUp_Inc
- * Created Date: Wednesday, June 10th 2020, 7:24:14 pm
+ * Created Date: Wednesday, June 10th 2020, 7:23:21 pm
  * Author: Brad Smialek
  * ------------------------------------
  * Quokka: option q, q

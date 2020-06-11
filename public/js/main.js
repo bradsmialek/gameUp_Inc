@@ -41,7 +41,7 @@ window.onload = function () {
           debug: true
         }
       },
-      scene: [SceneLoad, SceneTitle, RocketScene, Game]
+      scene: [SceneLoad, SceneTitle, RocketScene, Game, SceneMain, EndWake, BackToSleep]
     };
   } else {
     var config = {

@@ -18,12 +18,14 @@ class SceneLoad extends Phaser.Scene {
 
     this.load.image("button1", "/public/assets/images/ui/buttons/2/1.png");
     this.load.image("button2", "/public/assets/images/ui/buttons/2/5.png");
+    this.load.image("button3", "/public/assets/images/ui/buttons/1/3.png");
+    this.load.image("button4", "/public/assets/images/ui/buttons/1/5.png");
 
     this.load.audio('explode', ["/public/assets/audio/explode.wav", "public/assets/audio/explode.ogg"]);
     this.load.audio('enemyShoot', ["/public/assets/audio/enemyShoot.wav", "public/assets/audio/enemyShoot.ogg"]);
     this.load.audio('laser', ["/public/assets/audio/laser.wav", "/assets/audio/laser.ogg"]);
     this.load.audio('backgroundmusic', ["/public/assets/audio/background.mp3", "/public/assets/audio/background.ogg"]);
-
+    this.load.audio('skywave', ["/public/assets/audio/sky.wav"]);
 
     this.load.image("toggleBack", "/public/assets/images/ui/toggles/1.png");
     this.load.image("sfxOff", "/public/assets/images/ui/icons/sfx_off.png");
@@ -37,6 +39,7 @@ class SceneLoad extends Phaser.Scene {
     this.load.image("gun", "/public/assets/images/gun.png");
     this.load.image("ebullet", "/public/assets/images/bullet.png");
     this.load.image("bullet", "/public/assets/images/rainbow3.png");
+    this.load.image('singleBoy', '/public/assets/images/singleBoy.png');
 
     this.load.image("bg_1", "/public/assets/images/p1.png");
     this.load.image("bg_2", "/public/assets/images/p8.png");
@@ -46,6 +49,34 @@ class SceneLoad extends Phaser.Scene {
     this.load.image("bg_6", "/public/assets/images/BBT.png");
     this.load.image("shuttle", "/public/assets/images/shuttle.png");
     this.load.image("moons", "/public/assets/images/c.png");
+
+    this.load.atlas(BOY, '/public/assets/images/boy4.png', '/public/assets/images/boy4.json');
+
+    this.load.image('block', '/public/assets/images/blackBlock.png');
+    this.load.image('chair', '/public/assets/images/benchCushion.png');
+    this.load.image('box', '/public/assets/images/cardboardBoxClosed.png');
+    this.load.image('door', '/public/assets/images/doorway.png');
+    this.load.image('window', '/public/assets/images/wallWindowSlide.png');
+
+    this.load.image('bookcase1', '/public/assets/images/bookcaseClosed.png');
+    this.load.image('bookcase2', '/public/assets/images/bookcaseClosedDoors.png');
+    this.load.image('bed', '/public/assets/images/bedSingle.png');
+    this.load.image('desk', '/public/assets/images/desk.png');
+    this.load.image('deskCorner', '/public/assets/images/deskCorner.png');
+    this.load.image('lampTall', '/public/assets/images/lampRoundFloor.png');
+    this.load.image('plant', '/public/assets/images/pottedPlant.png');
+    this.load.image('books', '/public/assets/images/books.png');
+
+    this.load.image('mist', '/public/assets/images/01_Mist.png');
+    this.load.image('bushes', '/public/assets/images/02_Bushes.png');
+    this.load.image('particles', '/public/assets/images/03_Particles.png');
+    this.load.image('forest', '/public/assets/images/04_Forest.png');
+    this.load.image('moreParticles', '/public/assets/images/05_Particles.png');
+    this.load.image('forest1', '/public/assets/images/06_Forest.png');
+    this.load.image('forest2', '/public/assets/images/07_Forest.png');
+    this.load.image('forest3', '/public/assets/images/08_Forest.png');
+    this.load.image('forest4', '/public/assets/images/09_Forest.png');
+    this.load.image('lightsky', '/public/assets/images/10_Sky.png');
 
 
     this.load.spritesheet("rocks", "/public/assets/images/rocks.png", {
