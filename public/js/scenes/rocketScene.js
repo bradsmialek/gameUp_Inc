@@ -22,7 +22,6 @@ class RocketScene extends Phaser.Scene {
   }
   preload() {
 
-    this.load.image('shuttle', '/public/assets/images/shuttle.png')
   }
 
   create() {

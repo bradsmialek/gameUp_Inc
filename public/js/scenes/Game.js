@@ -1,6 +1,3 @@
-// import ScoreLabel from '/Hiro/src/game/ScoreLabel.js';
-// import BombSpawner from '/Hiro/src/game/BombSpawner.js';
-
 const PLAY_TIME = 90; // Seconds
 const GROUND_KEY = 'ground';
 const GROUND_KEY_MAIN = 'ground_main';
@@ -105,7 +102,7 @@ class Game extends Phaser.Scene {
     this.load.image(MUSHROOM[1], '/public/assets/images/tallShroom_red.png');
     this.load.image(MUSHROOM[2], '/public/assets/images/tallShroom_tan.png');
     this.load.image(SIGN_EXIT, '/public/assets/images/signExit.png');
-    this.load.image(WINDOW, '/public/assets/images/window.png');
+    this.load.image(WINDOW, '/public/assets/images/shuttle.png');
     this.load.image(KEY_BLUE, '/public/assets/images/keyBlue.png');
     this.load.image(BOX_1, '/public/assets/images/boxCrate_single.png');
     this.load.image(BOX_2, '/public/assets/images/boxCrate_double.png');
@@ -151,6 +148,7 @@ class Game extends Phaser.Scene {
   create() {
 
     this.add.image(400, 300, 'sky');
+    // this.spaceShuttle = this.add.image(, , "shuttle");
 
     /** Exit sign **/
     this.physics.add.staticImage(700, 110, SIGN_EXIT).setScale(0.4).refreshBody();
