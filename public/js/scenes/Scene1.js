@@ -231,6 +231,7 @@ class Scene1 extends Phaser.Scene {
       flagCharTouchedBedOld = flagCharTouchedBed;
       if (storeTimeValue + 4 == timeTick && storeTimeValue !== 0) {
         this.scene.start(SCENE_NEXT);
+        c = 0;
       }
 
     }
