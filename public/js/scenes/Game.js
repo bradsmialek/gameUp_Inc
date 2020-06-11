@@ -438,6 +438,7 @@ class Game extends Phaser.Scene {
       this.physics.add.collider(this.player, springPlatform, this.onSpringPlatform, null, this);
     }
     if (timeSecond == 0) {
+      timerMax = 90;
       this.scene.start('BackToSleep');
       //this.scene.start('ScorePage', {score : score});
       //Time 
