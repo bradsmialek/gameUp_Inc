@@ -2,7 +2,7 @@ import Phaser from '/Hiro/src/lib/phaser.js';
 import ScoreLabel from '/Hiro/src/game/ScoreLabel.js';
 import BombSpawner from '/Hiro/src/game/BombSpawner.js';
 
-//import GameOver from '/src/scenes/GameOver.js';
+// Line 411 : Scene change to GameOver (running out of time), Line 335 : Finish the game
 
 const PLAY_TIME = 90; // Seconds
 const GROUND_KEY = 'ground';
@@ -16,7 +16,7 @@ const BRONZE_COIN = 'bronzeCoin';
 const SILVER_COIN = 'silverCoin';
 const MUSHROOM = ['tallShroom_brown', 'tallShroom_red', 'tallShroom_tan'];
 const SIGN_EXIT = 'signExit';
-const WINDOW = 'window';
+const WINDOW = 'windowGoal';
 const KEY_BLUE = 'keyBlue';
 const BOX_1 = 'box1';
 const BOX_2 = 'box2';
@@ -66,17 +66,17 @@ var rocketCollected = false;
 var boxPhysicsRef = [];
 var bombsGroup;
 
-export default class Game extends Phaser.Scene{
+export default class Scene2 extends Phaser.Scene{
 
     constructor(){
-        super('Game') // Scene 'game'
+        super('Scene2') // Scene 'game'
         this.player = undefined;
         this.cursors = undefined;
         this.scoreLabel = undefined;
         this.stars = undefined;
         this.bombSpawner = undefined;
         this.gameOver = false;
-        //this.score = score;
+
     }
 
     init(){
@@ -94,7 +94,7 @@ export default class Game extends Phaser.Scene{
         this.load.image(MUSHROOM[1], '.././assets/images/tallShroom_red.png');
         this.load.image(MUSHROOM[2], '.././assets/images/tallShroom_tan.png');
         this.load.image(SIGN_EXIT, '.././assets/images/signExit.png');
-        this.load.image(WINDOW, '.././assets/images/window.png');
+        this.load.image(WINDOW, '.././assets/images/windowGoal.png');
         this.load.image(KEY_BLUE, '.././assets/images/keyBlue.png');
         this.load.image(BOX_1, '.././assets/images/boxCrate_single.png');
         this.load.image(BOX_2, '.././assets/images/boxCrate_double.png');
@@ -258,20 +258,20 @@ export default class Game extends Phaser.Scene{
         this.player.setCollideWorldBounds(true);
         
         this.anims.create({
-            key : 'left',
+            key : 'left_onion',
             frames: this.anims.generateFrameNumbers(DUDE_KEY, {start:0, end: 3}),
             frameRate: 10,
             repeat: -1
         })
 
         this.anims.create({
-            key : 'turn',
+            key : 'turn_onion',
             frames: [{key: DUDE_KEY, frame: 4}],
             frameRate: 20,
         })
 
         this.anims.create({
-            key: 'right',
+            key: 'right_onion',
             frames: this.anims.generateFrameNumbers(DUDE_KEY, {start:5, end:8}),
             frameRate: 10,
             repeat: -1
@@ -359,15 +359,15 @@ export default class Game extends Phaser.Scene{
 
         if (this.cursors.left.isDown){
             this.player.setVelocityX(playerLeftValue);
-            this.player.anims.play('left', true);
+            this.player.anims.play('left_onion', true);
         }
         else if (this.cursors.right.isDown){
             this.player.setVelocityX(playerRightValue);
-            this.player.anims.play('right', true);
+            this.player.anims.play('right_onion', true);
         }
         else{
             this.player.setVelocityX(0);
-            this.player.anims.play('turn');
+            this.player.anims.play('turn_onion');
         }
 
         if (this.player.body.touching.down){

@@ -1,10 +1,10 @@
 import Phaser from '/Hiro/src/lib/phaser.js';
-
+// Line 7 controls what scene you want to load next
 const SOUND_DREAM = 'havingDreamSound';
 const BOY = 'boy';
 const SOUND_DOORCLOSE = 'doorCloseSound';
 const SOUND_STAIRS = 'stairsSound';
-const SCENE_NEXT = 'Game';
+const SCENE_NEXT = 'Scene2'; 
 
 var timedEvent;
 var c = 0;
@@ -73,12 +73,10 @@ export default class Scene1 extends Phaser.Scene{
         const desk = this.physics.add.staticImage(460, 460, 'desk');
         const lamp = this.physics.add.staticImage(180, 420, 'lampTall');
         const books = this.physics.add.staticImage(430, 425, 'books');
-        // this.add.image(400, 300, 'sky');
         const platforms = this.createPlatforms();
         
         const chair = this.physics.add.staticImage(560, 480, 'chair').setScale(0.8).refreshBody();
 
-        //const box = this.physics.add.staticImage(200, 400, 'box');
         this.playerBoy = this.createPlayerBoy();
         const doorway = this.physics.add.staticImage(670, 500, 'door').setScale(1.1).refreshBody();
         const bed = this.physics.add.staticImage(160, 520, 'bed');
@@ -87,10 +85,7 @@ export default class Scene1 extends Phaser.Scene{
 
         this.physics.add.collider(this.playerBoy, platforms);
         this.physics.add.collider(this.playerBoy, trigger, this.touchBed, null, this);
-
-        // this.physics.add.overlap(this.player, chair, this.ChairAction, null, this);
-        // this.physics.add.overlap(this.player, chair, this.boxAction, null, this);
-
+        this.physics.add.collider(this.playerBoy, doorway);
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -113,7 +108,7 @@ export default class Scene1 extends Phaser.Scene{
 
     touchBed(playerBoy, bed){
         disableCursor = true;
-        playerBoy.anims.play('ontoBed', false);
+        playerBoy.anims.play('ontoBed_boy', false);
         this.physics.pause();
         flagCharTouchedBed = true;
         this.sound.play(SOUND_DREAM);
@@ -121,39 +116,39 @@ export default class Scene1 extends Phaser.Scene{
     
 
     createPlayerBoy(){
-        this.playerBoy = this.physics.add.sprite(600, 450, BOY);
+        this.playerBoy = this.physics.add.sprite(590, 450, BOY);
         this.playerBoy.setScale(0.25);
         this.playerBoy.visible = false;
         this.playerBoy.setCollideWorldBounds(true);
 
         this.anims.create({
-            key : 'left',
+            key : 'left_boy',
             frames: this.anims.generateFrameNames(BOY, {start:1, end: 5, prefix: 'run-left-', suffix: '.png'}),
             frameRate: 5,
             repeat: -1
         })
 
         this.anims.create({
-            key : 'stand-right',
+            key : 'stand_right_boy',
             frames: [{key: BOY, frame: 'standing-right-1.png'}],
             frameRate: 20,
         })
 
         this.anims.create({
-            key : 'stand-left',
+            key : 'stand_left_boy',
             frames: [{key: BOY, frame: 'standing-left-1.png'}],
             frameRate: 20,
         })
 
         this.anims.create({
-            key: 'right',
+            key: 'right_boy',
             frames: this.anims.generateFrameNames(BOY, {start:1, end: 5, prefix: 'run-right-', suffix: '.png'}),
             frameRate: 5,
             repeat: -1
         })
 
         this.anims.create({
-            key: 'ontoBed',
+            key: 'ontoBed_boy',
             frames: this.anims.generateFrameNames(BOY, {start:1, end: 3, prefix: 'goToBed-', suffix: '.png'}),
             frameRate: 0.70,
             repeat: 0
@@ -164,22 +159,6 @@ export default class Scene1 extends Phaser.Scene{
 
     // update() will be executed every over and over ('update loop')
     update(){
-
-        // 0 : Up, 1: Down
-        if (spaceKeyStatus == 0){
-            this.input.keyboard.once('keydown_SPACE', ()=>{
-                console.log('keydown');
-                spaceKeyStatus = 1;
-            });
-        } 
-        else if(spaceKeyStatus == 1 ){
-            this.input.keyboard.once('keyup_SPACE', ()=>{
-                console.log('keyup');
-                spaceKeyStatus = 0;
-            });
-        }
-
-        
 
         // Timer
         timerRemaining = c + timedEvent.getProgress();
@@ -238,21 +217,21 @@ export default class Scene1 extends Phaser.Scene{
         if (disableCursor == false){
             if (this.cursors.left.isDown){
                 this.playerBoy.setVelocityX(-30);
-                this.playerBoy.anims.play('left', true);
+                this.playerBoy.anims.play('left_boy', true);
                 oldCursor = 1;
             }
             else if (this.cursors.right.isDown){
                 this.playerBoy.setVelocityX(30);
-                this.playerBoy.anims.play('right', true);
+                this.playerBoy.anims.play('right_boy', true);
                 oldCursor = 2;
             }
             else{
                 this.playerBoy.setVelocityX(0);
                 if (oldCursor == 1){
-                    this.playerBoy.anims.play('stand-left');
+                    this.playerBoy.anims.play('stand_left_boy');
                 }
                 else if (oldCursor == 2){
-                    this.playerBoy.anims.play('stand-right');
+                    this.playerBoy.anims.play('stand_right_boy');
                 }
             }
         }
