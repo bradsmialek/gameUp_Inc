@@ -23,47 +23,43 @@ var doorCloseSoundPlayed = false;
 var starsSoundPlayed = false;
 
 class Scene1 extends Phaser.Scene {
-
   constructor() {
     super('Scene1') // Scene 'Scene1' // before game
     this.playerBoy = undefined;
     this.cursors = undefined;
   }
 
-  init() {
-    // reserve for future usage
-  }
-
-  /*** preload() and create() wiil be called by Phaser at appropriate timing ***/
+  //*** preload() and create() wiil be called by Phaser at appropriate timing ***/
   // specify images, audio, or other assets to load before starting the Scene
   preload() {
 
-    this.load.atlas(BOY, '.././assets/images/boy4.png', '.././assets/images/boy4.json');
+    this.load.atlas(BOY, '/public/assets/images/boy4.png', '/public/assets/images/boy4.json');
 
-    this.load.image('block', '.././assets/images/blackBlock.png');
-    this.load.image('chair', '.././assets/images/benchCushion.png');
-    this.load.image('box', '.././assets/images/cardboardBoxClosed.png');
-    this.load.image('door', '.././assets/images/doorway.png');
-    this.load.image('window', '.././assets/images/wallWindowSlide.png');
+    this.load.image('block', '/public/assets/images/blackBlock.png');
+    this.load.image('chair', '/public/assets/images/benchCushion.png');
+    this.load.image('box', '/public/assets/images/cardboardBoxClosed.png');
+    this.load.image('door', '/public/assets/images/doorway.png');
+    this.load.image('window', '/public/assets/images/wallWindowSlide.png');
 
-    this.load.image('bookcase1', '.././assets/images/bookcaseClosed.png');
-    this.load.image('bookcase2', '.././assets/images/bookcaseClosedDoors.png');
-    this.load.image('bed', '.././assets/images/bedSingle.png');
-    this.load.image('desk', '.././assets/images/desk.png');
-    this.load.image('deskCorner', '.././assets/images/deskCorner.png');
-    this.load.image('lampTall', '.././assets/images/lampRoundFloor.png');
-    this.load.image('plant', '.././assets/images/pottedPlant.png');
-    this.load.image('books', '.././assets/images/books.png');
+    this.load.image('bookcase1', '/public/assets/images/bookcaseClosed.png');
+    this.load.image('bookcase2', '/public/assets/images/bookcaseClosedDoors.png');
+    this.load.image('bed', '/public/assets/images/bedSingle.png');
+    this.load.image('desk', '/public/assets/images/desk.png');
+    this.load.image('deskCorner', '/public/assets/images/deskCorner.png');
+    this.load.image('lampTall', '/public/assets/images/lampRoundFloor.png');
+    this.load.image('plant', '/public/assets/images/pottedPlant.png');
+    this.load.image('books', '/public/assets/images/books.png');
 
 
-    this.load.audio(SOUND_DOORCLOSE, '.././assets/sound/doorClose.wav');
-    this.load.audio(SOUND_STAIRS, '.././assets/sound/stairs.mp3');
-    this.load.audio(SOUND_DREAM, '.././assets/sound/havingDream.wav');
+    this.load.audio(SOUND_DOORCLOSE, '/public/assets/sound/doorClose.wav');
+    this.load.audio(SOUND_STAIRS, '/public/assets/sound/stairs.mp3');
+    this.load.audio(SOUND_DREAM, '/public/assets/sound/havingDream.wav');
   }
 
   // Create() is called once all the assets for the Scene have been loaded
   // Only assets that have been loaded can be used in create()
   create() {
+
 
     const trigger = this.physics.add.staticImage(160, 520, 'books'); // this is used to trigger character to sleep
     const bookcase2 = this.physics.add.staticImage(340, 420, 'bookcase2');
@@ -78,7 +74,7 @@ class Scene1 extends Phaser.Scene {
 
     //const box = this.physics.add.staticImage(200, 400, 'box');
     this.playerBoy = this.createPlayerBoy();
-    const doorway = this.physics.add.staticImage(670, 500, 'door').setScale(1.1).refreshBody();
+    const doorway = this.physics.add.staticImage(670, 480, 'door').setScale(1.1).refreshBody();
     const bed = this.physics.add.staticImage(160, 520, 'bed');
 
     const plant = this.physics.add.staticImage(30, 525, 'plant');
@@ -115,6 +111,8 @@ class Scene1 extends Phaser.Scene {
   }
 
   touchBed(playerBoy, bed) {
+    console.log("touched bed");
+
     disableCursor = true;
     playerBoy.anims.play('ontoBed', false);
     this.physics.pause();
@@ -124,7 +122,7 @@ class Scene1 extends Phaser.Scene {
 
 
   createPlayerBoy() {
-    this.playerBoy = this.physics.add.sprite(600, 450, BOY);
+    this.playerBoy = this.physics.add.sprite(600, 500, BOY);
     this.playerBoy.setScale(0.25);
     this.playerBoy.visible = false;
     this.playerBoy.setCollideWorldBounds(true);
@@ -167,20 +165,24 @@ class Scene1 extends Phaser.Scene {
         prefix: 'run-right-',
         suffix: '.png'
       }),
-      frameRate: 5,
+      frameRate: 30,
       repeat: -1
     })
 
     this.anims.create({
+      x: 200,
+      y: 200,
       key: 'ontoBed',
       frames: this.anims.generateFrameNames(BOY, {
         start: 1,
         end: 3,
+
         prefix: 'goToBed-',
         suffix: '.png'
       }),
-      frameRate: 0.70,
-      repeat: 0
+      frameRate: 2,
+      repeat: 0,
+
     })
 
     return this.playerBoy;
@@ -189,9 +191,9 @@ class Scene1 extends Phaser.Scene {
 
   exitThisGame() {
     this.scene.start('ScorePage', {
-      score: score
+
     });
-    this.sound.play(SOUND_STAGE_CLEAR);
+    // this.sound.play(SOUND_STAGE_CLEAR);
   }
 
   // update() will be executed every over and over ('update loop')
@@ -254,7 +256,7 @@ class Scene1 extends Phaser.Scene {
 
       if ((flagCharTouchedBed == true) && (flagCharTouchedBedOld == false)) {
         storeTimeValue = timeTick;
-        console.log(storeTimeValue);
+        // console.log(storeTimeValue);
       }
       flagCharTouchedBedOld = flagCharTouchedBed;
       if (storeTimeValue + 4 == timeTick && storeTimeValue !== 0) {
@@ -269,11 +271,11 @@ class Scene1 extends Phaser.Scene {
     /* Cursor control */
     if (disableCursor == false) {
       if (this.cursors.left.isDown) {
-        this.playerBoy.setVelocityX(-30);
+        this.playerBoy.setVelocityX(-90);
         this.playerBoy.anims.play('left', true);
         oldCursor = 1;
       } else if (this.cursors.right.isDown) {
-        this.playerBoy.setVelocityX(30);
+        this.playerBoy.setVelocityX(90);
         this.playerBoy.anims.play('right', true);
         oldCursor = 2;
       } else {

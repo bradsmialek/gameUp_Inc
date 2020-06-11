@@ -29,8 +29,8 @@ window.onload = function () {
   if (isMobile == -1) {
     var config = {
       type: Phaser.AUTO,
-      width: 480,
-      height: 640,
+      width: 1280,
+      height: 900,
       parent: 'phaser-game',
       physics: {
         default: 'arcade',
