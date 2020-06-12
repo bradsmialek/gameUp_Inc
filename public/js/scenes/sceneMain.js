@@ -31,7 +31,7 @@ class SceneMain extends Phaser.Scene {
     });
 
     this.shield = 50;
-    this.eshield = 1;
+    this.eshield = 25;
 
     model.playerWon = true;
 
@@ -144,7 +144,7 @@ class SceneMain extends Phaser.Scene {
       align: 'center',
       backgroundColor: '#000000'
     });
-    this.text2 = this.add.text(0, 0, "Enemy Sheild\n5", {
+    this.text2 = this.add.text(0, 0, "Enemy Sheild\n25", {
       align: 'center',
       backgroundColor: '#000000'
     });
