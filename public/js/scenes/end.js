@@ -38,12 +38,11 @@
 // var storeTimeValue = 0;
 // var doorCloseSoundPlayed = false;
 // var starsSoundPlayed = false;
-
-class EndWake extends Phaser.Scene {
+// var mediaManagerSkywave;
+class End extends Phaser.Scene {
   constructor() {
-    super('EndWake')
-    this.playerBoy = undefined;
-    this.cursors = undefined;
+    super('End')
+
   }
 
   preload() {}
@@ -51,10 +50,10 @@ class EndWake extends Phaser.Scene {
   create() {
     emitter = new Phaser.Events.EventEmitter();
     controller = new Controller();
-    var mediaManager = new MediaManager({
-      scene: this
-    });
-    // mediaManager.setBackgroundMusic("skywave");
+    // mediaManagerSkywave = new MediaManager({
+    //   scene: this
+    // });
+    mediaManagerSkywave.setBackgroundMusic("skywave");
 
     this.alignGrid = new AlignGrid({
       rows: 11,
@@ -80,7 +79,7 @@ class EndWake extends Phaser.Scene {
     const plant = this.physics.add.staticImage(30, 525, 'plant');
 
 
-    this.physics.add.collider(this.playerBoy, this.astronaut, this.endGame, null, this);
+    // this.physics.add.collider(this.playerBoy, this.astronaut, this.endGame, null, this);
     this.cursors = this.input.keyboard.createCursorKeys();
     this.playerBoy = this.createPlayerBoy();
   }
@@ -98,15 +97,15 @@ class EndWake extends Phaser.Scene {
     return platforms;
   }
 
-  // touchBed(playerBoy, bed) {
-  //   console.log("touched bed");
+  touchBed(playerBoy, bed) {
+    console.log("touched bed");
 
-  //   disableCursor = true;
-  //   playerBoy.anims.play('ontoBed', false);
-  //   this.physics.pause();
-  //   flagCharTouchedBed = true;
-  //   this.sound.play(SOUND_DREAM);
-  // }
+    disableCursor = true;
+    playerBoy.anims.play('ontoBed', false);
+    this.physics.pause();
+    flagCharTouchedBed = true;
+    this.sound.play(SOUND_DREAM);
+  }
 
   createPlayerBoy() {
     this.playerBoy = this.physics.add.sprite(600, 500, BOY);
@@ -176,7 +175,8 @@ class EndWake extends Phaser.Scene {
   }
 
   update() {
-    // 0 : Up, 1: Down
+    // 0: Up,
+    // 1: Down
     if (spaceKeyStatus == 0) {
       this.input.keyboard.once('keydown_SPACE', () => {
         console.log('keydown');

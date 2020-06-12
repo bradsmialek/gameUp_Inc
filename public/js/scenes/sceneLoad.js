@@ -67,9 +67,6 @@ class SceneLoad extends Phaser.Scene {
     this.load.image('plant', '/public/assets/images/pottedPlant.png');
     this.load.image('books', '/public/assets/images/books.png');
 
-
-
-
     this.load.spritesheet("rocks", "/public/assets/images/rocks.png", {
       frameWidth: 120,
       frameHeight: 90,

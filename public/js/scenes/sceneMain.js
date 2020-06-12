@@ -1,3 +1,4 @@
+var mediaManagerBackground;
 class SceneMain extends Phaser.Scene {
   constructor() {
     super('SceneMain');
@@ -10,11 +11,12 @@ class SceneMain extends Phaser.Scene {
   create() {
     emitter = new Phaser.Events.EventEmitter();
     controller = new Controller();
-    var mediaManager = new MediaManager({
+    mediaManagerBackground = new MediaManager({
       scene: this
     });
+    // mediaManager.musicChanged();
 
-    mediaManager.setBackgroundMusic("backgroundmusic");
+    mediaManagerBackground.setBackgroundMusic("backgroundmusic");
 
     var frameNames = this.anims.generateFrameNumbers('exp');
     var f2 = frameNames.slice();
@@ -28,8 +30,8 @@ class SceneMain extends Phaser.Scene {
       repeat: false
     });
 
-    this.shield = 10;
-    this.eshield = 10;
+    this.shield = 50;
+    this.eshield = 1;
 
     model.playerWon = true;
 
@@ -138,11 +140,11 @@ class SceneMain extends Phaser.Scene {
   }
 
   makeInfo() {
-    this.text1 = this.add.text(0, 0, "Sheild\n10", {
+    this.text1 = this.add.text(0, 0, "Sheild\n50", {
       align: 'center',
       backgroundColor: '#000000'
     });
-    this.text2 = this.add.text(0, 0, "Enemy Sheild\n10", {
+    this.text2 = this.add.text(0, 0, "Enemy Sheild\n5", {
       align: 'center',
       backgroundColor: '#000000'
     });
@@ -183,8 +185,14 @@ class SceneMain extends Phaser.Scene {
     this.text1.setText('Shield\n' + this.shield);
     if (this.shield == 0) {
       model.playerWon = false;
-      this.scene.start('BackToSleep2')
+      this.updateScene();
+
     }
+  }
+
+  updateScene() {
+    this.scene.start('BackToSleep2');
+    mediaManagerBackground.setStopMusic();
   }
 
   downEnemy() {
@@ -192,8 +200,14 @@ class SceneMain extends Phaser.Scene {
     this.text2.setText('Enemy Shield\n' + this.eshield);
     if (this.eshield == 0) {
       model.playerWon = true;
-      this.escene.start('EndAwake')
+      this.goToAwake();
+
     }
+  }
+
+  goToAwake() {
+    this.scene.start('End', {});
+    mediaManagerBackground.setStopMusic();
   }
 
   rockHitPlayer(astronaut, rock) {
@@ -302,7 +316,7 @@ class SceneMain extends Phaser.Scene {
   showGun() {
 
     var dirObj = this.getDirFromAngle(this.astronaut.angle);
-    var gun = this.physics.add.sprite(this.astronaut.x + 12, this.astronaut.y + 5, 'gun');
+    var gun = this.physics.add.sprite(this.astronaut.x + dirObj.tx * 30, this.astronaut.y + dirObj.tx * 30, 'gun');
     Align.scaleToGameW(gun, .05); //TODO: fix gun on astro
     // var gun = this.physics.add.sprite(this.astronaut.x + dirObj.tx * 30, this.astronaut.y + dirObj.tx * 30, 'bullet');
     gun.angle = this.astronaut.angle;
@@ -312,7 +326,7 @@ class SceneMain extends Phaser.Scene {
 
   fireEBullet() {
     var elapsed = Math.abs(this.lastEBullet - this.getTimer());
-    if (elapsed < 500) {
+    if (elapsed < 200) {
       return;
     }
     // var x = this.eship.x +20  //TODO:  fix laser position
