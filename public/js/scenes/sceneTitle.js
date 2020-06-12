@@ -1,11 +1,16 @@
+var mediaManagerSkywave;
+var mediaManagerBackground;
 class SceneTitle extends Phaser.Scene {
   constructor() {
     super('SceneTitle');
   }
   preload() {
 
-
-    this.load.image("house", "/public/assets/images/dreamone.png")
+    this.load.spritesheet('playerIntro', '/public/assets/images/dude.png', {
+      frameWidth: 32,
+      frameHeight: 48
+    });
+    this.load.image("house", "/public/assets/images/dreamone.png");
     this.load.image('mist', '/public/assets/images/01_Mist.png');
     this.load.image('bushes', '/public/assets/images/02_Bushes.png');
     this.load.image('particles', '/public/assets/images/03_Particles.png');
@@ -21,10 +26,11 @@ class SceneTitle extends Phaser.Scene {
   create() {
     emitter = new Phaser.Events.EventEmitter();
     controller = new Controller();
-    var mediaManager = new MediaManager({
+    mediaManagerSkywave = new MediaManager({
       scene: this
     });
-    mediaManager.setBackgroundMusic("skywave");
+
+    mediaManagerSkywave.setBackgroundMusic('skywave')
 
     this.alignGrid = new AlignGrid({
       rows: 11,
@@ -65,11 +71,11 @@ class SceneTitle extends Phaser.Scene {
     this.mist.setOrigin(0, 0);
     this.mist.setScrollFactor(0);
 
-
     var title = this.add.image(0, 0, 'dream-logo');
     Align.scaleToGameW(title, .7);
     // Align.scaleToGameH(title, .02);
     this.alignGrid.placeAtIndex(38, title);
+    title.setScrollFactor(0);
 
     var btnStart = new FlatButton({
       scene: this,
@@ -78,19 +84,18 @@ class SceneTitle extends Phaser.Scene {
       event: 'start_game'
     });
     this.alignGrid.placeAtIndex(93, btnStart);
-
-    // this.icon2.setScrollFactor(0);
+    btnStart.setScrollFactor(0);
 
     //TODO: add mario brothers here we go noise
     emitter.on('start_game', this.startGame, this);
 
-    this.player = this.physics.add.sprite(400, 560, 'player');
+    this.player = this.physics.add.sprite(400, 560, 'playerIntro');
     this.player.setBounce(0.2);
     this.player.setCollideWorldBounds(true);
 
     this.anims.create({
       key: 'left',
-      frames: this.anims.generateFrameNumbers('player', {
+      frames: this.anims.generateFrameNumbers('playerIntro', {
         start: 0,
         end: 3
       }),
@@ -101,7 +106,7 @@ class SceneTitle extends Phaser.Scene {
     this.anims.create({
       key: 'turn',
       frames: [{
-        key: 'player',
+        key: 'playerIntro',
         frame: 4
       }],
       frameRate: 20,
@@ -109,7 +114,7 @@ class SceneTitle extends Phaser.Scene {
 
     this.anims.create({
       key: 'right',
-      frames: this.anims.generateFrameNumbers('player', {
+      frames: this.anims.generateFrameNumbers('playerIntro', {
         start: 5,
         end: 8
       }),
@@ -134,6 +139,7 @@ class SceneTitle extends Phaser.Scene {
 
   startGame() {
     console.log('starting');
+    timeTick = 0;
 
     this.scene.start('Scene1'); //Scene1    RocketScene  Game   SceneMain   EndWake
 

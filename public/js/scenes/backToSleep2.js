@@ -51,10 +51,10 @@ class BackToSleep2 extends Phaser.Scene {
   create() {
     emitter = new Phaser.Events.EventEmitter();
     controller = new Controller();
-    var mediaManager = new MediaManager({
+    mediaManagerSkywave = new MediaManager({
       scene: this
     });
-    mediaManager.setBackgroundMusic("skywave");
+    mediaManagerSkywave.setBackgroundMusic('skywave')
 
     this.alignGrid = new AlignGrid({
       rows: 11,
@@ -107,6 +107,7 @@ class BackToSleep2 extends Phaser.Scene {
 
   sleepy() {
     this.scene.start('SceneMain');
+    mediaManagerSkywave.setStopMusic();
   }
 
   createPlatforms() {

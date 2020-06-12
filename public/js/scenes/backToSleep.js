@@ -62,8 +62,6 @@ class BackToSleep extends Phaser.Scene {
       scene: this
     });
 
-
-
     var btn1 = new FlatButton({
       scene: this,
       key: 'button3',
@@ -102,11 +100,12 @@ class BackToSleep extends Phaser.Scene {
   }
 
   endGame() {
-    this.scene.start('SceneTitle')
+    this.scene.start('SceneTitle');
   }
 
   sleepy() {
     this.scene.start('Game');
+    mediaManagerSkywave.setStopMusic();
   }
 
   createPlatforms() {

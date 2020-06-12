@@ -230,8 +230,15 @@ class Scene1 extends Phaser.Scene {
       }
       flagCharTouchedBedOld = flagCharTouchedBed;
       if (storeTimeValue + 4 == timeTick && storeTimeValue !== 0) {
+
         this.scene.start(SCENE_NEXT);
         c = 0;
+        disableCursor = true;
+        flagCharTouchedBed = false;
+        storeTimeValue = 0;
+        doorCloseSoundPlayed = false;
+        starsSoundPlayed = false;
+        mediaManagerSkywave.setStopMusic();
       }
 
     }

@@ -136,7 +136,7 @@ class Game extends Phaser.Scene {
     this.load.audio(SOUND_JUMP, '/public/assets/sound/jump.wav');
     this.load.audio(SOUND_BOX, '/public/assets/sound/stepOnBox.wav');
     this.load.audio(SOUND_ROCKET_PICKUP, '/public/assets/sound/rocketPickUp.wav');
-    this.load.audio(SOUND_ROCKET_FIRE, '/public/assets/sound/rocketFire4.mp3');
+    this.load.audio(SOUND_ROCKET_FIRE, '/public/assets/sound/rocketFire5.wav');
     this.load.audio(SOUND_STAGE_CLEAR, '/public/assets/sound/stageClear.wav');
 
 
@@ -148,6 +148,9 @@ class Game extends Phaser.Scene {
   create() {
     // timerMax = 90;
     this.add.image(400, 300, 'sky');
+    var mediaManager = new MediaManager({
+      scene: this
+    });
 
 
     /** Exit sign **/
@@ -441,6 +444,13 @@ class Game extends Phaser.Scene {
       timerMax = 90;
       this.scene.start('BackToSleep');
       c = 0;
+      _springPlatformShowUp = false;
+      rocketCollected = false;
+
+      countStarGenerate = 0;
+      gemCollected.splice(0, gemCollected.length);
+      mushroomCollected.splice(0, mushroomCollected.length);
+      coinCollected.splice(0, coinCollected.length);
 
     }
   }

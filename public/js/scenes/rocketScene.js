@@ -16,6 +16,7 @@
 
 
 //rocket to space scene
+var MediaManagerBackground1;
 class RocketScene extends Phaser.Scene {
   constructor() {
     super('RocketScene')
@@ -25,6 +26,10 @@ class RocketScene extends Phaser.Scene {
   }
 
   create() {
+    MediaManagerBackground1 = new MediaManager({
+      scene: this
+    });
+    MediaManagerBackground1.setBackgroundMusic("backgroundmusic");
     // create an tiled sprite with the size of our game screen
     this.bg_1 = this.add.tileSprite(0, 0, game.config.width, game.config.height, "bg_1");
     // Set its pivot to the top left corner
@@ -52,6 +57,7 @@ class RocketScene extends Phaser.Scene {
 
   goToGame() {
     this.scene.start("SceneMain")
+    MediaManagerBackground1.setStopMusic();
   }
 
   moveRocket(rocket, boy) {
