@@ -10,18 +10,18 @@ class SceneTitle extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 48
     });
-    this.load.image("house", "/public/assets/images/dreamone.png");
-    this.load.image('mist', '/public/assets/images/01_Mist.png');
-    this.load.image('bushes', '/public/assets/images/02_Bushes.png');
-    this.load.image('particles', '/public/assets/images/03_Particles.png');
-    this.load.image('forest', '/public/assets/images/04_Forest.png');
-    this.load.image('moreParticles', '/public/assets/images/05_Particles.png');
-    this.load.image('forest1', '/public/assets/images/06_Forest.png');
-    this.load.image('forest2', '/public/assets/images/07_Forest.png');
-    this.load.image('forest3', '/public/assets/images/08_Forest.png');
-    this.load.image('forest4', '/public/assets/images/09_Forest.png');
-    this.load.image('lightsky', '/public/assets/images/10_Sky.png');
-    this.load.image('dream-logo', '/public/assets/images/dreamlogo2.png');
+    this.load.image("house", "public/assets/images/dreamone.png");
+    this.load.image('mist', 'public/assets/images/01_Mist.png');
+    this.load.image('bushes', 'public/assets/images/02_Bushes.png');
+    this.load.image('particles', 'public/assets/images/03_Particles.png');
+    this.load.image('forest', 'public/assets/images/04_Forest.png');
+    this.load.image('moreParticles', 'public/assets/images/05_Particles.png');
+    this.load.image('forest1', 'public/assets/images/06_Forest.png');
+    this.load.image('forest2', 'public/assets/images/07_Forest.png');
+    this.load.image('forest3', 'public/assets/images/08_Forest.png');
+    this.load.image('forest4', 'public/assets/images/09_Forest.png');
+    this.load.image('lightsky', 'public/assets/images/10_Sky.png');
+    this.load.image('dream-logo', 'public/assets/images/dreamlogo2.png');
   }
   create() {
     emitter = new Phaser.Events.EventEmitter();
