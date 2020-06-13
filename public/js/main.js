@@ -58,7 +58,7 @@ window.onload = function () {
           debug: false
         }
       },
-      scene: [SceneLoad, SceneTitle, Scene1, Game, BackToSleep, RocketScene, SceneMain, BackToSleep2, end, SceneOver]
+      scene: [SceneLoad, SceneTitle, Scene1, Game, BackToSleep, RocketScene, SceneMain, BackToSleep2, End, SceneOver]
     };
   }
   G = new Constants();
