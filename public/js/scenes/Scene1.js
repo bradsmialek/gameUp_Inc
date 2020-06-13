@@ -38,27 +38,27 @@ class Scene1 extends Phaser.Scene {
   // specify images, audio, or other assets to load before starting the Scene
   preload() {
 
-    this.load.atlas(BOY, '/public/assets/images/boy4.png', '/public/assets/images/boy4.json');
+    this.load.atlas(BOY, 'public/assets/images/boy4.png', 'public/assets/images/boy4.json');
 
-    this.load.image('block', '/public/assets/images/blackBlock.png');
-    this.load.image('chair', '/public/assets/images/benchCushion.png');
-    this.load.image('box', '/public/assets/images/cardboardBoxClosed.png');
-    this.load.image('door', '/public/assets/images/doorway.png');
-    this.load.image('window', '/public/assets/images/wallWindowSlide.png');
+    this.load.image('block', 'public/assets/images/blackBlock.png');
+    this.load.image('chair', 'public/assets/images/benchCushion.png');
+    this.load.image('box', 'public/assets/images/cardboardBoxClosed.png');
+    this.load.image('door', 'public/assets/images/doorway.png');
+    this.load.image('window', 'public/assets/images/wallWindowSlide.png');
 
-    this.load.image('bookcase1', '/public/assets/images/bookcaseClosed.png');
-    this.load.image('bookcase2', '/public/assets/images/bookcaseClosedDoors.png');
-    this.load.image('bed', '/public/assets/images/bedSingle.png');
-    this.load.image('desk', '/public/assets/images/desk.png');
-    this.load.image('deskCorner', '/public/assets/images/deskCorner.png');
-    this.load.image('lampTall', '/public/assets/images/lampRoundFloor.png');
-    this.load.image('plant', '/public/assets/images/pottedPlant.png');
-    this.load.image('books', '/public/assets/images/books.png');
+    this.load.image('bookcase1', 'public/assets/images/bookcaseClosed.png');
+    this.load.image('bookcase2', 'public/assets/images/bookcaseClosedDoors.png');
+    this.load.image('bed', 'public/assets/images/bedSingle.png');
+    this.load.image('desk', 'public/assets/images/desk.png');
+    this.load.image('deskCorner', 'public/assets/images/deskCorner.png');
+    this.load.image('lampTall', 'public/assets/images/lampRoundFloor.png');
+    this.load.image('plant', 'public/assets/images/pottedPlant.png');
+    this.load.image('books', 'public/assets/images/books.png');
 
 
-    this.load.audio(SOUND_DOORCLOSE, '/public/assets/sound/doorClose.wav');
-    this.load.audio(SOUND_STAIRS, '/public/assets/sound/stairs.mp3');
-    this.load.audio(SOUND_DREAM, '/public/assets/sound/havingDream.wav');
+    this.load.audio(SOUND_DOORCLOSE, 'public/assets/sound/doorClose.wav');
+    this.load.audio(SOUND_STAIRS, 'public/assets/sound/stairs.mp3');
+    this.load.audio(SOUND_DREAM, 'public/assets/sound/havingDream.wav');
   }
 
   // Create() is called once all the assets for the Scene have been loaded
