@@ -50,7 +50,7 @@ class SceneLoad extends Phaser.Scene {
     this.load.image("shuttle", "public/assets/images/shuttle.png");
     this.load.image("moons", "public/assets/images/c.png");
 
-    this.load.atlas(BOY, 'public/assets/images/boy4.png', '/public/assets/images/boy4.json');
+    this.load.atlas(BOY, 'public/assets/images/boy4.png', 'public/assets/images/boy4.json');
 
     this.load.image('block', 'public/assets/images/blackBlock.png');
     this.load.image('chair', 'public/assets/images/benchCushion.png');
@@ -85,6 +85,12 @@ class SceneLoad extends Phaser.Scene {
     this.load.spritesheet("player", "public/assets/images/dude.png", {
       frameWidth: 37,
       frameHeight: 39
+    });
+
+
+    this.load.spritesheet('playerIntro', 'public/assets/images/dude.png', {
+      frameWidth: 32,
+      frameHeight: 48
     });
 
   }

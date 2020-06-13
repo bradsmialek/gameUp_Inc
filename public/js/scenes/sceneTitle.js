@@ -6,10 +6,7 @@ class SceneTitle extends Phaser.Scene {
   }
   preload() {
 
-    this.load.spritesheet('playerIntro', '/public/assets/images/dude.png', {
-      frameWidth: 32,
-      frameHeight: 48
-    });
+
     this.load.image("house", "public/assets/images/dreamone.png");
     this.load.image('mist', 'public/assets/images/01_Mist.png');
     this.load.image('bushes', 'public/assets/images/02_Bushes.png');
