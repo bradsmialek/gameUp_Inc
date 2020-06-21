@@ -257,8 +257,8 @@ class SceneMain extends Phaser.Scene {
     rock.destroy();
     this.makeRocks();
   }
-
-  destroyGun(gun) {
+  
+  destroyGun(gun){
     gun.destroy();
   }
 
@@ -293,15 +293,13 @@ class SceneMain extends Phaser.Scene {
         angle2 = this.toDegrees(angle2);
         this.eship.angle = angle2;
       }
-
-      //
     } else {
       this.makeBullet();
     }
   }
 
   makeBullet() {
-    this.showGun();
+    var gun = this.showGun();
     var dirObj = this.getDirFromAngle(this.astronaut.angle);
 
     var bullet = this.physics.add.sprite(this.astronaut.x + dirObj.tx * 30, this.astronaut.y + dirObj.tx * 30, 'bullet');
@@ -311,6 +309,7 @@ class SceneMain extends Phaser.Scene {
     bullet.angle = this.astronaut.angle;
     bullet.body.setVelocity(dirObj.tx * 200, dirObj.ty * 200);
     emitter.emit(G.PLAY_SOUND, "laser");
+    this.destroyGun(gun);
   }
 
   showGun() {
@@ -320,13 +319,11 @@ class SceneMain extends Phaser.Scene {
     Align.scaleToGameW(gun, .05); //TODO: fix gun on astro
     // var gun = this.physics.add.sprite(this.astronaut.x + dirObj.tx * 30, this.astronaut.y + dirObj.tx * 30, 'bullet');
     gun.angle = this.astronaut.angle;
-    gun.body.setVelocity(dirObj.tx, dirObj.ty);
-    // this.destroyGun(this.gun)
   }
 
   fireEBullet() {
     var elapsed = Math.abs(this.lastEBullet - this.getTimer());
-    if (elapsed < 200) {
+    if (elapsed < 500) {
       return;
     }
     // var x = this.eship.x +20  //TODO:  fix laser position
