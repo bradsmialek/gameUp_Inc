@@ -67,8 +67,8 @@ class SceneTitle extends Phaser.Scene {
     this.mist = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'mist');
     this.mist.setOrigin(0, 0);
     this.mist.setScrollFactor(0);
-    this.arrows = this.add.image(400, 530, 'arrows');
-
+    this.arrows = this.add.image(400, 525, 'arrows');
+    this.arrows.setScrollFactor(0);
     var title = this.add.image(0, 0, 'dream-logo');
     Align.scaleToGameW(title, .7);
     // Align.scaleToGameH(title, .02);
