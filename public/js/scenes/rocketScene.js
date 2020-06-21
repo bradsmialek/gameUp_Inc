@@ -50,6 +50,7 @@ class RocketScene extends Phaser.Scene {
     this.singleBoy = this.physics.add.sprite(game.config.width / 2, game.config.height * 1, 'singleBoy');
 
     const trigger = this.physics.add.staticImage(400, 0, 'books');
+    trigger.alpha = 0;
     this.physics.add.collider(this.singleBoy, trigger, this.goToGame, null, this);
 
   }
