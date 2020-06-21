@@ -6,7 +6,7 @@ class SceneTitle extends Phaser.Scene {
   }
   preload() {
 
-
+    this.load.image("arrows", "public/assets/images/v-26-512.png");
     this.load.image("house", "public/assets/images/dreamone.png");
     this.load.image('mist', 'public/assets/images/01_Mist.png');
     this.load.image('bushes', 'public/assets/images/02_Bushes.png');
@@ -67,6 +67,7 @@ class SceneTitle extends Phaser.Scene {
     this.mist = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'mist');
     this.mist.setOrigin(0, 0);
     this.mist.setScrollFactor(0);
+    this.arrows = this.add.image(350, 500, 'arrows');
 
     var title = this.add.image(0, 0, 'dream-logo');
     Align.scaleToGameW(title, .7);
@@ -82,6 +83,8 @@ class SceneTitle extends Phaser.Scene {
     });
     this.alignGrid.placeAtIndex(93, btnStart);
     btnStart.setScrollFactor(0);
+    
+    
 
     //TODO: add mario brothers here we go noise
     emitter.on('start_game', this.startGame, this);
