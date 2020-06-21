@@ -6,7 +6,7 @@ class SceneTitle extends Phaser.Scene {
   }
   preload() {
 
-    this.load.image("arrows", "public/assets/images/v-26-512.png");
+    this.load.image("arrows", "public/assets/images/arrows.png");
     this.load.image("house", "public/assets/images/dreamone.png");
     this.load.image('mist', 'public/assets/images/01_Mist.png');
     this.load.image('bushes', 'public/assets/images/02_Bushes.png');
